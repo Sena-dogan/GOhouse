@@ -66,8 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
             color: AppThemeData.lightColorScheme.primary,
             fontWeight: FontWeight.normal),
       ),
-      elevation: 12.0,
+      elevation: 5.0,
       backgroundColor: Colors.white,
+      automaticallyImplyLeading: false,
+
     );
   }
 
@@ -130,7 +132,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: Text('Hosgeldiniz'),
+              child: Text('Hosgeldiniz', style: GoogleFonts.roboto(
+                fontSize: 23,
+              ),),
             ),
             SizedBox(height: 90.0),
             _buildUserIdField(),
