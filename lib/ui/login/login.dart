@@ -1,4 +1,5 @@
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:boilerplate/constants/app_theme.dart';
 import 'package:boilerplate/constants/assets.dart';
 import 'package:boilerplate/data/sharedpref/constants/preferences.dart';
 import 'package:boilerplate/utils/routes/routes.dart';
@@ -13,6 +14,7 @@ import 'package:boilerplate/widgets/rounded_button_widget.dart';
 import 'package:boilerplate/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,14 +53,31 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       primary: true,
-      appBar: EmptyAppBar(),
+      backgroundColor: Colors.white,
+      appBar: _loginAppBar(),
       body: _buildBody(),
+    );
+  }
+
+  PreferredSizeWidget _loginAppBar() {
+    return AppBar(
+      title: Text(
+        "Kayit Ol",
+        style: GoogleFonts.roboto(
+          fontSize: 25.0,
+          color: AppThemeData.lightColorScheme.primary,
+          fontWeight: FontWeight.normal
+        ),
+      ),
+      elevation: 12.0,
+      backgroundColor: Colors.white,
     );
   }
 
   // body methods:--------------------------------------------------------------
   Widget _buildBody() {
     return Material(
+      color: Colors.white,
       child: Stack(
         children: <Widget>[
           MediaQuery.of(context).orientation == Orientation.landscape
@@ -98,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildLeftSide() {
     return SizedBox.expand(
       child: Image.asset(
-        Assets.carBackground,
+        Assets.appLogo,
         fit: BoxFit.cover,
       ),
     );
@@ -113,12 +132,18 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AppIconWidget(image: 'assets/icons/ic_appicon.png'),
-            SizedBox(height: 24.0),
+            Center(
+              child: Text('Welcome Back'),
+            ),
+            SizedBox(height: 90.0),
             _buildUserIdField(),
             _buildPasswordField(),
+            SizedBox(height: 12.0),
+            _buildSignInButton(),
+            SizedBox(
+              height: 13.0,
+            ),
             _buildForgotPasswordButton(),
-            _buildSignInButton()
           ],
         ),
       ),
@@ -132,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
           hint: AppLocalizations.of(context).translate('login_et_user_email'),
           inputType: TextInputType.emailAddress,
           icon: Icons.person,
+          isIcon: false,
           iconColor: _themeStore.darkMode ? Colors.white70 : Colors.black54,
           textController: _userEmailController,
           inputAction: TextInputAction.next,
@@ -156,6 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
               AppLocalizations.of(context).translate('login_et_user_password'),
           isObscure: true,
           padding: EdgeInsets.only(top: 16.0),
+          isIcon: false,
           icon: Icons.lock,
           iconColor: _themeStore.darkMode ? Colors.white70 : Colors.black54,
           textController: _passwordController,
@@ -172,25 +199,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildForgotPasswordButton() {
     return Align(
       alignment: FractionalOffset.centerRight,
-      child: FlatButton(
-        padding: EdgeInsets.all(0.0),
-        child: Text(
-          AppLocalizations.of(context).translate('login_btn_forgot_password'),
-          style: Theme.of(context)
-              .textTheme
-              .caption
-              ?.copyWith(color: Colors.orangeAccent),
-        ),
-        onPressed: () {},
+      child: GestureDetector(
+        child: Text("Forgot your password?"),
+        onTap: () {},
       ),
     );
   }
 
   Widget _buildSignInButton() {
-    return RoundedButtonWidget(
-      buttonText: AppLocalizations.of(context).translate('login_btn_sign_in'),
-      buttonColor: Colors.orangeAccent,
-      textColor: Colors.white,
+    return ElevatedButton(
       onPressed: () async {
         if (_store.canLogin) {
           DeviceUtils.hideKeyboard(context);
@@ -199,6 +216,13 @@ class _LoginScreenState extends State<LoginScreen> {
           _showErrorMessage('Please fill in all fields');
         }
       },
+      child: Text(
+        "Log In",
+        style: TextStyle(color: Colors.white),
+      ),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: AppThemeData.lightColorScheme.primary,
+          minimumSize: Size(180, 60)),
     );
   }
 

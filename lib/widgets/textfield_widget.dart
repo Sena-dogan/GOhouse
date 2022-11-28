@@ -1,3 +1,4 @@
+import 'package:boilerplate/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -21,24 +22,28 @@ class TextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: TextFormField(
-        controller: textController,
-        focusNode: focusNode,
-        onFieldSubmitted: onFieldSubmitted,
-        onChanged: onChanged,
-        autofocus: autoFocus,
-        textInputAction: inputAction,
-        obscureText: this.isObscure,
-        maxLength: 25,
-        keyboardType: this.inputType,
-        style: Theme.of(context).textTheme.bodyText1,
-        decoration: InputDecoration(
-            hintText: this.hint,
-            hintStyle:
-                Theme.of(context).textTheme.bodyText1!.copyWith(color: hintColor),
-            errorText: errorText,
-            counterText: '',
-            icon: this.isIcon ? Icon(this.icon, color: iconColor) : null),
+      child: Material(
+        child: TextFormField(
+          controller: textController,
+          focusNode: focusNode,
+          onFieldSubmitted: onFieldSubmitted,
+          onChanged: onChanged,
+          autofocus: autoFocus,
+          textInputAction: inputAction,
+          obscureText: this.isObscure,
+          maxLength: 25,
+          keyboardType: this.inputType,
+          style: Theme.of(context).textTheme.bodyText1,
+          decoration: InputDecoration(
+              border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.grey)),
+              enabledBorder: new OutlineInputBorder(borderSide: new BorderSide(color: AppThemeData.lightColorScheme.primary)),
+              hintText: this.hint,
+              hintStyle:
+                  Theme.of(context).textTheme.bodyText1!.copyWith(color: hintColor),
+              errorText: errorText,
+              counterText: '',
+              icon: this.isIcon ? Icon(this.icon, color: iconColor) : null),
+        ),
       ),
     );
   }

@@ -37,7 +37,7 @@ class AppThemeData {
       colorScheme: colorScheme,
       textTheme: _textTheme,
       // Matches manifest.json colors and background color.
-      primaryColor: const Color(0xFF030303),
+      primaryColor: const Color(0xFF7494cb),
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.background,
         elevation: 0,
@@ -60,9 +60,9 @@ class AppThemeData {
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
-    primary: Color(0xFFd21e1d),
-    primaryContainer: Color(0xFF9e1718),
-    secondary: Color(0xFFEFF3F3),
+    primary: Color(0xFF7494cb),
+    primaryContainer: Color(0xFF263e83),
+    secondary: Color(0xFF263e83),
     secondaryContainer: Color(0xFFFAFBFB),
     background: Color(0xFFE6EBEB),
     surface: Color(0xFFFAFBFB),
@@ -98,15 +98,15 @@ class AppThemeData {
   static const _bold = FontWeight.w700;
 
   static final TextTheme _textTheme = TextTheme(
-    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
-    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
-    headline5: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
-    subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
-    overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
-    bodyText1: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
-    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
-    bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    headline6: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
-    button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
+    headline4: GoogleFonts.roboto(fontWeight: _bold, fontSize: 20.0),
+    caption: GoogleFonts.roboto(fontWeight: _semiBold, fontSize: 16.0),
+    headline5: GoogleFonts.roboto(fontWeight: _medium, fontSize: 16.0),
+    subtitle1: GoogleFonts.roboto(fontWeight: _medium, fontSize: 16.0),
+    overline: GoogleFonts.roboto(fontWeight: _medium, fontSize: 12.0),
+    bodyText1: GoogleFonts.roboto(fontWeight: _regular, fontSize: 14.0),
+    subtitle2: GoogleFonts.roboto(fontWeight: _medium, fontSize: 14.0),
+    bodyText2: GoogleFonts.roboto(fontWeight: _regular, fontSize: 16.0),
+    headline6: GoogleFonts.roboto(fontWeight: _bold, fontSize: 16.0),
+    button: GoogleFonts.roboto(fontWeight: _semiBold, fontSize: 14.0),
   );
 }
