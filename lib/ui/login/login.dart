@@ -7,11 +7,7 @@ import 'package:boilerplate/utils/routes/routes.dart';
 import 'package:boilerplate/stores/form/form_store.dart';
 import 'package:boilerplate/stores/theme/theme_store.dart';
 import 'package:boilerplate/utils/device/device_utils.dart';
-import 'package:boilerplate/utils/locale/app_localization.dart';
-import 'package:boilerplate/widgets/app_icon_widget.dart';
-import 'package:boilerplate/widgets/empty_app_bar_widget.dart';
 import 'package:boilerplate/widgets/progress_indicator_widget.dart';
-import 'package:boilerplate/widgets/rounded_button_widget.dart';
 import 'package:boilerplate/widgets/textfield_widget.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint: AppLocalizations.of(context).translate('login_et_user_email'),
+          hint: "E-posta adresinizi girin",
           inputType: TextInputType.emailAddress,
           icon: Icons.person,
           isIcon: false,
@@ -180,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context) {
         return TextFieldWidget(
           hint:
-              AppLocalizations.of(context).translate('login_et_user_password'),
+              "Sifrenizi girin",
           isObscure: true,
           padding: EdgeInsets.only(top: 16.0),
           isIcon: false,
@@ -248,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (message.isNotEmpty) {
           FlushbarHelper.createError(
             message: message,
-            title: AppLocalizations.of(context).translate('home_tv_error'),
+            title: "Hata",
             duration: Duration(seconds: 3),
           )..show(context);
         }

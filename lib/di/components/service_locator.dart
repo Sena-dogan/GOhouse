@@ -9,8 +9,6 @@ import 'package:boilerplate/di/module/local_module.dart';
 import 'package:boilerplate/di/module/network_module.dart';
 import 'package:boilerplate/stores/error/error_store.dart';
 import 'package:boilerplate/stores/form/form_store.dart';
-import 'package:boilerplate/stores/language/language_store.dart';
-import 'package:boilerplate/stores/post/post_store.dart';
 import 'package:boilerplate/stores/theme/theme_store.dart';
 import 'package:boilerplate/stores/user/user_store.dart';
 import 'package:dio/dio.dart';
@@ -49,8 +47,6 @@ Future<void> setupLocator() async {
   ));
 
   // stores:--------------------------------------------------------------------
-  getIt.registerSingleton(LanguageStore(getIt<Repository>()));
-  getIt.registerSingleton(PostStore(getIt<Repository>()));
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
   getIt.registerSingleton(UserStore(getIt<Repository>()));
 }
