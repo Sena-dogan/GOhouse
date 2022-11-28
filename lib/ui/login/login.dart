@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:boilerplate/constants/app_theme.dart';
 import 'package:boilerplate/constants/assets.dart';
 import 'package:boilerplate/data/sharedpref/constants/preferences.dart';
+import 'package:boilerplate/utils/routemanager/application.dart';
 import 'package:boilerplate/utils/routes/routes.dart';
 import 'package:boilerplate/stores/form/form_store.dart';
 import 'package:boilerplate/stores/theme/theme_store.dart';
@@ -12,6 +13,7 @@ import 'package:boilerplate/widgets/empty_app_bar_widget.dart';
 import 'package:boilerplate/widgets/progress_indicator_widget.dart';
 import 'package:boilerplate/widgets/rounded_button_widget.dart';
 import 'package:boilerplate/widgets/textfield_widget.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,10 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
       title: Text(
         "Kayit Ol",
         style: GoogleFonts.roboto(
-          fontSize: 25.0,
-          color: AppThemeData.lightColorScheme.primary,
-          fontWeight: FontWeight.normal
-        ),
+            fontSize: 25.0,
+            color: AppThemeData.lightColorScheme.primary,
+            fontWeight: FontWeight.normal),
       ),
       elevation: 12.0,
       backgroundColor: Colors.white,
@@ -133,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: Text('Welcome Back'),
+              child: Text('Hosgeldiniz'),
             ),
             SizedBox(height: 90.0),
             _buildUserIdField(),
@@ -211,9 +212,10 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () async {
         if (_store.canLogin) {
           DeviceUtils.hideKeyboard(context);
-          _store.login();
+          Application.router.navigateTo(context, Routes.home,
+            transition: TransitionType.native);
         } else {
-          _showErrorMessage('Please fill in all fields');
+          _showErrorMessage('Lutfen tum alanlari doldurun');
         }
       },
       child: Text(
