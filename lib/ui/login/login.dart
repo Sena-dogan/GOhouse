@@ -69,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
       elevation: 5.0,
       backgroundColor: Colors.white,
       automaticallyImplyLeading: false,
-
     );
   }
 
@@ -132,11 +131,24 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: Text('Hosgeldiniz', style: GoogleFonts.roboto(
-                fontSize: 23,
-              ),),
+              child: Text(
+                'Hosgeldiniz',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Billabong',
+                  fontSize: 70,
+                  fontWeight: FontWeight.w100,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(0, 2.2),
+                      blurRadius: 199.0,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 90.0),
+            SizedBox(height: 50.0),
             _buildUserIdField(),
             _buildPasswordField(),
             SizedBox(height: 12.0),
@@ -179,13 +191,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Observer(
       builder: (context) {
         return TextFieldWidget(
-          hint:
-              "Sifrenizi girin",
+          hint: "Sifrenizi girin",
           isObscure: true,
           padding: EdgeInsets.only(top: 16.0),
           isIcon: false,
           icon: Icons.lock,
-          iconColor: _themeStore.darkMode ? Colors.white70 : Colors.black54,
+          iconColor: _themeStore.darkMode ? Colors.white : Colors.black54,
           textController: _passwordController,
           focusNode: _passwordFocusNode,
           errorText: _store.formErrorStore.password,
@@ -202,7 +213,9 @@ class _LoginScreenState extends State<LoginScreen> {
       alignment: FractionalOffset.centerRight,
       child: GestureDetector(
         child: Text("Forgot your password?"),
-        onTap: () {},
+        onTap: () {
+          debugPrint("forgot");
+        },
       ),
     );
   }
@@ -213,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (_store.canLogin) {
           DeviceUtils.hideKeyboard(context);
           Application.router.navigateTo(context, Routes.home,
-            transition: TransitionType.native);
+              transition: TransitionType.native);
         } else {
           _showErrorMessage('Lutfen tum alanlari doldurun');
         }

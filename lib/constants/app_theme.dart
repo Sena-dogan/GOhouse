@@ -50,10 +50,7 @@ class AppThemeData {
       focusColor: focusColor,
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        backgroundColor: Color.alphaBlend(
-          _lightFillColor.withOpacity(0.80),
-          _darkFillColor,
-        ),
+        backgroundColor: Colors.white,
         contentTextStyle: _textTheme.subtitle1!.apply(color: _darkFillColor),
       ),
     );

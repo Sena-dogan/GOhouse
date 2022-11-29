@@ -37,11 +37,10 @@ class TextFieldWidget extends StatelessWidget {
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.grey)),
+              border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.white)),
               enabledBorder: new OutlineInputBorder(borderSide: new BorderSide(color: AppThemeData.lightColorScheme.primary)),
               hintText: this.hint,
-              hintStyle:
-                  Theme.of(context).textTheme.bodyText1!.copyWith(color: hintColor),
+              hintStyle: TextStyle(color: hintColor),
               errorText: errorText,
               counterText: '',
               icon: this.isIcon ? Icon(this.icon, color: iconColor) : null),
@@ -61,7 +60,7 @@ class TextFieldWidget extends StatelessWidget {
     this.isIcon = true,
     this.padding = const EdgeInsets.all(0),
     this.hintColor = Colors.black,
-    this.iconColor = Colors.grey,
+    this.iconColor = Colors.white,
     this.focusNode,
     this.onFieldSubmitted,
     this.onChanged,
