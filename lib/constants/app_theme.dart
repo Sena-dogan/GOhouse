@@ -26,7 +26,7 @@ class AppThemeData {
   static const _darkFillColor = Colors.white;
 
   static final Color _lightFocusColor = Colors.black.withOpacity(0.12);
-  static final Color _darkFocusColor = Colors.white.withOpacity(0.12);
+  static final Color _darkFocusColor = Colors.white;
 
   static ThemeData lightThemeData =
       themeData(lightColorScheme, _lightFocusColor);
@@ -61,7 +61,7 @@ class AppThemeData {
     primaryContainer: Color(0xFF263e83),
     secondary: Color(0xFF263e83),
     secondaryContainer: Color(0xFFFAFBFB),
-    background: Color(0xFFE6EBEB),
+    background: Color.fromARGB(255, 255, 255, 255),
     surface: Color(0xFFFAFBFB),
     onBackground: Colors.white,
     error: _lightFillColor,

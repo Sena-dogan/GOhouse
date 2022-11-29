@@ -1,6 +1,11 @@
 import 'package:boilerplate/stores/theme/theme_store.dart';
+import 'package:boilerplate/ui/pages/explore_page.dart';
+import 'package:boilerplate/ui/pages/home_page.dart';
+import 'package:boilerplate/ui/pages/my_services.dart';
+import 'package:boilerplate/ui/pages/service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,6 +15,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //stores:---------------------------------------------------------------------
   late ThemeStore _themeStore;
+  int i = 0;
+  List pages = [
+    HomePage(),
+    ExplorePage(),
+    Service(),
+    MyServices(),
+  ];
 
   @override
   void initState() {
@@ -26,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
+      body: pages[i],
+      bottomNavigationBar: _bottomNavBar(),
     );
   }
 
@@ -45,5 +57,46 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Text("Hi"),
       ),
     );
+  }
+
+  Widget _bottomNavBar(){
+    return Container(
+        color: Colors.white,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
+          child: GNav(
+            gap: 10,
+            backgroundColor: Colors.white,
+            color: Colors.black,
+            activeColor: Colors.black,
+            tabBackgroundColor: Color.fromARGB(90, 214, 206, 206),
+            onTabChange: (value) {
+              //TODO: Mobx
+              setState(() {
+                i = value;
+              });
+            },
+            padding: EdgeInsets.all(16.0),
+            tabs: [
+              GButton(
+                icon: Icons.home_outlined,
+                text: "Ana Sayfa",
+              ),
+              GButton(
+                icon: Icons.location_on_outlined,
+                text: "Keşfet",
+              ),
+              GButton(
+                icon: Icons.add,
+                text: "Hizmet Ver/Al",
+              ),
+              GButton(
+                icon: Icons.shopping_basket_outlined,
+                text: "Hizmetlerim",
+              ),
+            ],
+          ),
+        ),
+      );
   }
 }
