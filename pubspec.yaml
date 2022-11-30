@@ -72,6 +72,8 @@ dependencies:
   fluro: ^2.0.4
   google_nav_bar: ^5.0.6
   carousel_slider: ^4.1.1
+  hidden_drawer_menu: ^3.0.1
+  sidebarx: ^0.14.0
 
 dev_dependencies:
   flutter_test:
