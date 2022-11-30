@@ -5,7 +5,7 @@ class Assets {
   static const String appLogo = "assets/icons/ic_appicon.png";
 
   // home screen assets
-  static const String bannerImage = "assets/images/banner_image.jpeg";
+  static const String bannerImage = "assets/images/banner_image.png";
 
   // home page assets
   static const String serviceDrawer1 = "assets/images/service_drawer_1.png";
