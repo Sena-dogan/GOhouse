@@ -49,7 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigate() async {
+    //TODO: Düzelt
     Application.router
-        .navigateTo(context, Routes.login, transition: TransitionType.fadeIn);
+        .navigateTo(context, Routes.home, transition: TransitionType.fadeIn);
   }
 }

@@ -15,6 +15,8 @@ class Assets {
   // Location screen assets
   static const String locationBanner = "assets/images/location_banner.png";
 
-  
+  // menu assets
+  static const String pikachu = "assets/images/pikachu.png";
+  static const String pikachuuu = "assets/images/pikachuuu.png";
 
 }

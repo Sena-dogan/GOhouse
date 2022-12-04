@@ -4,7 +4,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sidebarx/sidebarx.dart';
 // import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
+
 
 import '../../constants/app_theme.dart';
 // import 'package:boilerplate/ui/pages/menu/hidden_drawer_menu.dart';
@@ -17,10 +19,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _controller = SidebarXController(selectedIndex: 0, extended: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
+      key: _scaffoldKey,
+      drawer: _sideBar(),
       body: _homePageBody(),
     );
   }
@@ -32,6 +39,8 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: Icon(Icons.menu),
             onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+              debugPrint("asd");
             },
           ),
           SizedBox(
@@ -57,6 +66,95 @@ class _HomePageState extends State<HomePage> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: false,
+    );
+  }
+
+  Widget _sideBar() {
+    return SidebarX(
+      // controller: SidebarXController(
+      //   selectedIndex: 0,
+      // ),
+      // items: [SidebarXItem(icon: Icons.home, label: "Ana Sayfa")],
+
+      controller: _controller,
+      theme: SidebarXTheme(
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        textStyle: const TextStyle(color: Colors.black),
+        selectedTextStyle: const TextStyle(color: Colors.black),
+        itemTextPadding: const EdgeInsets.only(left: 30),
+        selectedItemTextPadding: const EdgeInsets.only(left: 30),
+        itemDecoration: BoxDecoration(
+          border: Border.all(color: Colors.transparent),
+        ),
+        selectedItemDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: actionColor.withOpacity(0.37),
+          ),
+          gradient: LinearGradient(
+            colors: [white, actionColor],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blueGrey.withOpacity(0.28),
+              blurRadius: 30,
+            )
+          ],
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+          size: 20,
+        ),
+      ),
+      extendedTheme: const SidebarXTheme(
+        width: 200,
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        margin: EdgeInsets.only(right: 10),
+      ),
+      footerDivider: divider,
+      headerBuilder: (context, extended) {
+        return SafeArea(
+          child: SizedBox(
+            height: 100,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.asset(Assets.pikachuuu, ),
+            ),
+          ),
+        );
+      },
+      items: [
+        const SidebarXItem(
+          icon: Icons.home,
+          label: 'Ana Sayfa',
+        ),
+        SidebarXItem(
+          icon: Icons.person,
+          label: 'Profil',
+          onTap: () {
+            debugPrint('Hello');
+
+          }, 
+        ),
+        const SidebarXItem(
+          icon: Icons.message,
+          label: 'Mesajlar',
+        ),
+        const SidebarXItem(
+          icon: Icons.phone_callback_rounded,
+          label: 'Bize Ulaşın',
+        ),
+        const SidebarXItem(
+          icon: Icons.logout,
+          label: 'Çıkış',
+        ),
+      ],
     );
   }
 
@@ -105,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.roboto(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    shadows: [Shadow(color: Colors.black, blurRadius: 1.0 )]),
+                    shadows: [Shadow(color: Colors.black, blurRadius: 1.0)]),
               ),
               Text(
                 ' Ilanlari',
@@ -253,3 +351,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+const primaryColor = Color(0xFF685BFF);
+const canvasColor = Color(0xFF2E2E48);
+const scaffoldBackgroundColor = Color(0xFF464667);
+const accentCanvasColor = Color(0xFF3E3E61);
+const white = Colors.white;
+Color actionColor = AppThemeData.lightColorScheme.primary;
+
+final divider = Divider(color: white.withOpacity(0.3), height: 1);
