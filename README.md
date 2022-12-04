@@ -1,13 +1,13 @@
-# Boilerplate Project
+# gohouse Project
 
-A boilerplate project created in flutter using MobX and Provider. Boilerplate supports both web and mobile, clone the appropriate branches mentioned below:
+A gohouse project created in flutter using MobX and Provider. gohouse supports both web and mobile, clone the appropriate branches mentioned below:
 
-* For Mobile: https://github.com/zubairehman/flutter-boilerplate-project/tree/master (stable channel)
-* For Web: https://github.com/zubairehman/flutter-boilerplate-project/tree/feature/web-support (beta channel)
+* For Mobile: https://github.com/zubairehman/flutter-gohouse-project/tree/master (stable channel)
+* For Web: https://github.com/zubairehman/flutter-gohouse-project/tree/feature/web-support (beta channel)
 
 ## Getting Started
 
-The Boilerplate contains the minimal implementation required to create a new library or project. The repository code is preloaded with some basic components like basic app architecture, app theme, constants and required dependencies to create a new project. By using boiler plate code as standard initializer, we can have same patterns in all the projects that will inherit it. This will also help in reducing setup & development time by allowing you to use same code pattern and avoid re-writing from scratch.
+The gohouse contains the minimal implementation required to create a new library or project. The repository code is preloaded with some basic components like basic app architecture, app theme, constants and required dependencies to create a new project. By using boiler plate code as standard initializer, we can have same patterns in all the projects that will inherit it. This will also help in reducing setup & development time by allowing you to use same code pattern and avoid re-writing from scratch.
 
 ## How to Use 
 
@@ -16,7 +16,7 @@ The Boilerplate contains the minimal implementation required to create a new lib
 Download or clone this repo by using the link below:
 
 ```
-https://github.com/zubairehman/flutter-boilerplate-project.git
+https://github.com/zubairehman/flutter-gohouse-project.git
 ```
 
 **Step 2:**
@@ -56,7 +56,7 @@ In Visual Studio Code, navigate to `Preferences` -> `Settings` and search for `F
 **/*.g.dart
 ```
 
-## Boilerplate Features:
+## gohouse Features:
 
 * Splash
 * Login
@@ -250,7 +250,7 @@ class Routes {
 This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
 
 ```dart
-import 'package:boilerplate/routes.dart';
+import 'package:gohouse/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -286,11 +286,11 @@ class MyApp extends StatelessWidget {
 
 ## Wiki
 
-Checkout [wiki](https://github.com/zubairehman/flutter-boilerplate-project/wiki) for more info
+Checkout [wiki](https://github.com/zubairehman/flutter-gohouse-project/wiki) for more info
 
 ## Conclusion
 
-I will be happy to answer any questions that you may have on this approach, and if you want to lend a hand with the boilerplate then please feel free to submit an issue and/or pull request 🙂
+I will be happy to answer any questions that you may have on this approach, and if you want to lend a hand with the gohouse then please feel free to submit an issue and/or pull request 🙂
 
 Again to note, this is example can appear as over-architectured for what it is - but it is an example only. If you liked my work, don’t forget to ⭐ star the repo to show your support.
 

@@ -1,5 +1,5 @@
-import 'package:boilerplate/data/network/constants/endpoints.dart';
-import 'package:boilerplate/data/sharedpref/shared_preference_helper.dart';
+import 'package:gohouse/data/network/constants/endpoints.dart';
+import 'package:gohouse/data/sharedpref/shared_preference_helper.dart';
 import 'package:dio/dio.dart';
 
 abstract class NetworkModule {

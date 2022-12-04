@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:boilerplate/constants/app_theme.dart';
-import 'package:boilerplate/constants/assets.dart';
-import 'package:boilerplate/constants/strings.dart';
-import 'package:boilerplate/data/sharedpref/constants/preferences.dart';
-import 'package:boilerplate/utils/routemanager/application.dart';
-import 'package:boilerplate/utils/routes/routes.dart';
-import 'package:boilerplate/widgets/app_icon_widget.dart';
+import 'package:gohouse/constants/app_theme.dart';
+import 'package:gohouse/constants/assets.dart';
+import 'package:gohouse/constants/strings.dart';
+import 'package:gohouse/data/sharedpref/constants/preferences.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
+import 'package:gohouse/widgets/app_icon_widget.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

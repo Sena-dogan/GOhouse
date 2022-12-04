@@ -1,8 +1,8 @@
-import 'package:boilerplate/stores/theme/theme_store.dart';
-import 'package:boilerplate/ui/pages/explore_page.dart';
-import 'package:boilerplate/ui/pages/home_page.dart';
-import 'package:boilerplate/ui/pages/my_services.dart';
-import 'package:boilerplate/ui/pages/service.dart';
+import 'package:gohouse/stores/theme/theme_store.dart';
+import 'package:gohouse/ui/pages/explore_page.dart';
+import 'package:gohouse/ui/pages/home_page.dart';
+import 'package:gohouse/ui/pages/my_services.dart';
+import 'package:gohouse/ui/pages/service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

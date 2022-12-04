@@ -1,6 +1,6 @@
-import 'package:boilerplate/data/local/constants/db_constants.dart';
-import 'package:boilerplate/models/post/post.dart';
-import 'package:boilerplate/models/post/post_list.dart';
+import 'package:gohouse/data/local/constants/db_constants.dart';
+import 'package:gohouse/models/post/post.dart';
+import 'package:gohouse/models/post/post_list.dart';
 import 'package:sembast/sembast.dart';
 
 class PostDataSource {
