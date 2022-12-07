@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/strings.dart';
 import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/di/components/service_locator.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
-import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/home/home.dart';
 import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/splash/splash.dart';
@@ -24,8 +24,6 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   final ThemeStore _themeStore = ThemeStore(getIt<Repository>());
 
-  final UserStore _userStore = UserStore(getIt<Repository>());
-
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
@@ -45,16 +43,40 @@ class _MyAppState extends State<MyApp> {
         name: 'global-observer',
         builder: (context) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: Strings.appName,
-            theme: _themeStore.darkMode
-                ? AppThemeData.darkThemeData
-                : AppThemeData.lightThemeData,
-            onGenerateRoute: Application.router.generator,
-            home: _userStore.isLoggedIn ? HomeScreen() : SplashScreen(),
-          );
+              debugShowCheckedModeBanner: false,
+              title: Strings.appName,
+              theme: _themeStore.darkMode
+                  ? AppThemeData.darkThemeData
+                  : AppThemeData.lightThemeData,
+              onGenerateRoute: Application.router.generator,
+              home: MainPage());
         },
       ),
     );
+  }
+}
+
+class MainPage extends StatefulWidget {
+  const MainPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return HomeScreen();
+        else
+          return LoginScreen();
+      },
+    ));
   }
 }

@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/data/sharedpref/constants/preferences.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
-import 'package:gohouse/stores/form/form_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:gohouse/utils/device/device_utils.dart';
 import 'package:gohouse/widgets/progress_indicator_widget.dart';
@@ -33,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late FocusNode _passwordFocusNode;
 
   //stores:---------------------------------------------------------------------
-  final _store = FormStore();
 
   @override
   void initState() {
@@ -45,6 +46,22 @@ class _LoginScreenState extends State<LoginScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _themeStore = Provider.of<ThemeStore>(context);
+  }
+
+  Future signIn() async {
+    // get credentials
+    String email = _userEmailController.text.trim();
+    String password = _passwordController.text.trim();
+    // sign in with email and password
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      debugPrint("Signed in");
+    } on FirebaseAuthException catch (e) {
+      debugPrint('Error: $e');
+    }
   }
 
   @override
@@ -92,21 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 )
               : Center(child: _buildRightSide()),
-          Observer(
-            builder: (context) {
-              return _store.success
-                  ? navigate(context)
-                  : _showErrorMessage(_store.errorStore.errorMessage);
-            },
-          ),
-          Observer(
-            builder: (context) {
-              return Visibility(
-                visible: _store.loading,
-                child: CustomProgressIndicatorWidget(),
-              );
-            },
-          )
         ],
       ),
     );
@@ -150,13 +152,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 50.0),
             _buildUserIdField(),
+            SizedBox(height: 20.0),
             _buildPasswordField(),
+            SizedBox(height: 12.0),
+            _buildForgotPasswordButton(),
             SizedBox(height: 12.0),
             _buildSignInButton(),
             SizedBox(
               height: 13.0,
             ),
-            _buildForgotPasswordButton(),
+            
           ],
         ),
       ),
@@ -164,94 +169,106 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildUserIdField() {
-    return Observer(
-      builder: (context) {
-        return TextFieldWidget(
-          hint: "E-posta adresinizi girin",
-          inputType: TextInputType.emailAddress,
-          icon: Icons.person,
-          isIcon: false,
-          iconColor: _themeStore.darkMode ? Colors.white70 : Colors.black54,
-          textController: _userEmailController,
-          inputAction: TextInputAction.next,
-          autoFocus: false,
-          onChanged: (value) {
-            _store.setUserId(_userEmailController.text);
-          },
-          onFieldSubmitted: (value) {
-            FocusScope.of(context).requestFocus(_passwordFocusNode);
-          },
-          errorText: _store.formErrorStore.userEmail,
-        );
-      },
-    );
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1.0),
+        child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(12), // Fillet edge
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0), // Hint padding
+              child: TextField(
+                controller: _userEmailController,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Email',
+                ),
+              ),
+            )));
   }
 
   Widget _buildPasswordField() {
-    return Observer(
-      builder: (context) {
-        return TextFieldWidget(
-          hint: "Sifrenizi girin",
-          isObscure: true,
-          padding: EdgeInsets.only(top: 16.0),
-          isIcon: false,
-          icon: Icons.lock,
-          iconColor: _themeStore.darkMode ? Colors.white : Colors.black54,
-          textController: _passwordController,
-          focusNode: _passwordFocusNode,
-          errorText: _store.formErrorStore.password,
-          onChanged: (value) {
-            _store.setPassword(_passwordController.text);
-          },
-        );
-      },
-    );
+    return Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12.0,
+        ),
+        child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              border: Border.all(
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.circular(12), // Fillet edge
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0), // Hint padding
+              child: TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Password',
+                  //fillColor: Colors.grey[200],
+                  //filled: true
+                ),
+                onFieldSubmitted: ((value) => signIn()), // Enter submit
+              ),
+            )));
   }
 
   Widget _buildForgotPasswordButton() {
-    return Align(
-      alignment: FractionalOffset.centerRight,
-      child: GestureDetector(
-        child: Text("Forgot your password?"),
-        onTap: () {
-          debugPrint("forgot");
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          GestureDetector(
+            onTap: () {
+              // Application.router.navigateTo(context, Routes.forgot,
+              //     transition: TransitionType.fadeIn);
+            },
+            child: Text(
+              'Forgot Password?',
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildSignInButton() {
-    return ElevatedButton(
-      onPressed: () async {
-        if (_store.canLogin) {
-          DeviceUtils.hideKeyboard(context);
-          Application.router.navigateTo(context, Routes.home,
-              transition: TransitionType.native);
-        } else {
-          _showErrorMessage('Lutfen tum alanlari doldurun');
-        }
-      },
-      child: Text(
-        "Log In",
-        style: TextStyle(color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: GestureDetector(
+        onTap: (){
+          debugPrint('Sign in button pressed');
+          signIn();
+        },
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 199, 209, 7),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(
+            child: Text(
+              'Sign in',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
+          ),
+        ),
       ),
-      style: ElevatedButton.styleFrom(
-          backgroundColor: AppThemeData.lightColorScheme.primary,
-          minimumSize: Size(180, 60)),
     );
-  }
-
-  Widget navigate(BuildContext context) {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setBool(Preferences.is_logged_in, true);
-    });
-
-    Future.delayed(Duration(milliseconds: 0), () {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          Routes.home, (Route<dynamic> route) => false);
-    });
-
-    return Container();
   }
 
   // General Methods:-----------------------------------------------------------

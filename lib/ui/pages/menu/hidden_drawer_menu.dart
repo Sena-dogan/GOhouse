@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
@@ -104,7 +105,10 @@ final divider = Divider(color: white.withOpacity(0.3), height: 1);
         SidebarXItem(
           icon: Icons.logout,
           label: 'Çıkış',
-          onTap: () => Application.router.navigateTo(context, Routes.login, transition: TransitionType.fadeIn),
+          onTap: () => {
+            FirebaseAuth.instance.signOut(),
+            //Application.router.navigateTo(context, Routes.login, transition: TransitionType.fadeIn)
+          },
         ),
       ],
     );

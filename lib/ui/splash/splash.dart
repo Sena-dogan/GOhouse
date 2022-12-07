@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/constants/strings.dart';
@@ -24,33 +25,47 @@ class _SplashScreenState extends State<SplashScreen> {
     startTimer();
   }
 
+  late Timer timer;
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-        AppIconWidget(image: Assets.appLogo),
-        SizedBox(height: 31.0,),
-        Text(Strings.appBanner, style: GoogleFonts.roboto(
-          color: Colors.yellow[500],
-          fontWeight: FontWeight.bold,
-          fontSize: 22,
-        ),),
-      ]),
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AppIconWidget(image: Assets.appLogo),
+            SizedBox(
+              height: 31.0,
+            ),
+            Text(
+              Strings.appBanner,
+              style: GoogleFonts.roboto(
+                color: Colors.yellow[500],
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            ),
+          ]),
       color: AppThemeData.lightColorScheme.primary,
     );
   }
 
   startTimer() {
-    var _duration = Duration(milliseconds: 2000);
-    return Timer(_duration, navigate);
+    timer = Timer.periodic(Duration(seconds: 2), (timer) {
+      navigate();
+      timer.cancel();
+    });
+    return timer;
   }
 
-  navigate() async {
-    //TODO: Düzelt
+  navigate() {
     Application.router
-        .navigateTo(context, Routes.home, transition: TransitionType.fadeIn);
+        .navigateTo(context, Routes.login, transition: TransitionType.fadeIn);
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }

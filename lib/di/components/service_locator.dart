@@ -7,10 +7,7 @@ import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/data/sharedpref/shared_preference_helper.dart';
 import 'package:gohouse/di/module/local_module.dart';
 import 'package:gohouse/di/module/network_module.dart';
-import 'package:gohouse/stores/error/error_store.dart';
-import 'package:gohouse/stores/form/form_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
-import 'package:gohouse/stores/user/user_store.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sembast/sembast.dart';
@@ -20,8 +17,6 @@ final getIt = GetIt.instance;
 
 Future<void> setupLocator() async {
   // factories:-----------------------------------------------------------------
-  getIt.registerFactory(() => ErrorStore());
-  getIt.registerFactory(() => FormStore());
 
   // async singletons:----------------------------------------------------------
   getIt.registerSingletonAsync<Database>(() => LocalModule.provideDatabase());
@@ -48,5 +43,4 @@ Future<void> setupLocator() async {
 
   // stores:--------------------------------------------------------------------
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
-  getIt.registerSingleton(UserStore(getIt<Repository>()));
 }

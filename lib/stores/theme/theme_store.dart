@@ -1,5 +1,4 @@
 import 'package:gohouse/data/repository.dart';
-import 'package:gohouse/stores/error/error_store.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,7 +13,6 @@ abstract class _ThemeStore with Store {
   final Repository _repository;
 
   // store for handling errors
-  final ErrorStore errorStore = ErrorStore();
 
   // store variables:-----------------------------------------------------------
   @observable
