@@ -1,5 +1,6 @@
 import 'package:gohouse/ui/home/home.dart';
 import 'package:gohouse/ui/login/login.dart';
+import 'package:gohouse/ui/login/register.dart';
 import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -24,4 +25,10 @@ var chatHandler = Handler(handlerFunc: ((context, parameters) {
 
 var contactHandler = Handler(handlerFunc: ((context, parameters) {
   return ContactPage();
+}));
+
+var registerHandler = Handler(handlerFunc: ((context, parameters) {
+  return RegisterPage(showLoginPage: () {
+    
+  },);
 }));

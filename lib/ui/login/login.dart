@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
       debugPrint("Signed in");
     } on FirebaseAuthException catch (e) {
       debugPrint('Error: $e');
+      _showErrorMessage(e.message!);
     }
   }
 
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox.expand(
       child: Image.asset(
         Assets.appLogo,
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
       ),
     );
   }
@@ -132,25 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Center(
-              child: Text(
-                'Hosgeldiniz',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontFamily: 'Billabong',
-                  fontSize: 70,
-                  fontWeight: FontWeight.w100,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: Offset(0, 2.2),
-                      blurRadius: 199.0,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 50.0),
+            _buildWelcome(),
+            SizedBox(height: 70.0),
             _buildUserIdField(),
             SizedBox(height: 20.0),
             _buildPasswordField(),
@@ -161,38 +145,50 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 13.0,
             ),
-            
+            _buildSignUpButton(),
           ],
         ),
       ),
     );
   }
 
+  Center _buildWelcome() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Image.asset(Assets.appLogo),
+      ),
+    );
+  }
+
+
   Widget _buildUserIdField() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 1.0),
-        child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              border: Border.all(color: Colors.white),
-              borderRadius: BorderRadius.circular(12), // Fillet edge
+      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(12), // Fillet edge
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0), // Hint padding
+          child: TextField(
+            controller: _userEmailController,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Email',
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0), // Hint padding
-              child: TextField(
-                controller: _userEmailController,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Email',
-                ),
-              ),
-            )));
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildPasswordField() {
     return Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 12.0,
+          horizontal: 1.0,
         ),
         child: Container(
             decoration: BoxDecoration(
@@ -220,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildForgotPasswordButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 7),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -244,23 +240,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignInButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 2),
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           debugPrint('Sign in button pressed');
           signIn();
         },
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 199, 209, 7),
+            color: AppThemeData.lightColorScheme.primary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
             child: Text(
               'Sign in',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
@@ -288,7 +284,33 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox.shrink();
   }
 
-  // dispose:-------------------------------------------------------------------
+  Widget _buildSignUpButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Don\'t have account? ',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            debugPrint('Sign up button pressed');
+            Application.router.navigateTo(context, Routes.registerPage,transition: TransitionType.fadeIn);
+          },
+          child: Text(
+            'Register now.',
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+    // dispose:-------------------------------------------------------------------
   @override
   void dispose() {
     // Clean up the controller when the Widget is removed from the Widget tree
@@ -298,3 +320,21 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 }
+
+
+  // Text(
+  //       'Hosgeldiniz',
+  //       style: TextStyle(
+  //         color: Colors.black87,
+  //         fontFamily: 'Billabong',
+  //         fontSize: 70,
+  //         fontWeight: FontWeight.w100,
+  //         shadows: <Shadow>[
+  //           Shadow(
+  //             offset: Offset(0, 2.2),
+  //             blurRadius: 199.0,
+  //             color: Colors.white,
+  //           ),
+  //         ],
+  //       ),
+  //     ),
