@@ -49,7 +49,10 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppThemeData.lightColorScheme.primary,
-        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

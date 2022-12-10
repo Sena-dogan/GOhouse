@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       primary: true,
       backgroundColor: Colors.white,
-      appBar: _loginAppBar(),
+      //appBar: _loginAppBar(),
       body: _buildBody(),
     );
   }
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
   PreferredSizeWidget _loginAppBar() {
     return AppBar(
       title: Text(
-        "Kayit Ol",
+        "GOhouse",
         style: GoogleFonts.roboto(
             fontSize: 25.0,
             color: AppThemeData.lightColorScheme.primary,
