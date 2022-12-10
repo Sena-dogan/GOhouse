@@ -22,4 +22,5 @@ class Auth {
         PasswordCheck(password: password, passwordPolicy: passwordPolicy);
     return passwordCheck.isValid;
   }
+  
 }

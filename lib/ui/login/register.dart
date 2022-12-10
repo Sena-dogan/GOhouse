@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
+import 'package:gohouse/services/database.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,12 +51,20 @@ class _RegisterPageState extends State<RegisterPage> {
     return SizedBox.shrink();
   }
 
+  //TODO: Move them to auth service
   Future signUp() async {
+    final email = _emailController.text.trim();
+    final password = _passController.text.trim();
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passController.text.trim(),
+        email: email,
+        password: password,
       );
+      final user = FirebaseAuth.instance.currentUser;
+      final uid = user!.uid;
+      // Create a new document for the user with the uid
+      await DatabaseService(uid: uid)
+          .updateUserData(email.split("@")[0], 'surname', email, 0);
       Application.router.navigateTo(context, Routes.mainPage,
           transition: TransitionType.fadeIn);
     } on FirebaseAuthException catch (e) {
@@ -66,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -75,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //_buildBanner(),
                 const SizedBox(height: 30),
                 Text(
-                  'Register!',
+                  'Register Now!',
                   style: GoogleFonts.bebasNeue(fontSize: 70),
                 ),
                 Text(
