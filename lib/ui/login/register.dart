@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
@@ -29,32 +32,35 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future signUp() async {
-    if (_passController.text != _confirmPassControl.text ||
-        _passController.text.isEmpty == true ||
-        _emailController.text.isEmpty == true ||
-        _passController.text.length < 6) {
-      setState(() {
-        passMatch = false;
+  // General Methods:-----------------------------------------------------------
+  _showErrorMessage(String message) {
+    if (message.isNotEmpty) {
+      Future.delayed(Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: "Hata",
+            duration: Duration(seconds: 3),
+          )..show(context);
+        }
       });
-      debugPrint('nope wrong pass');
-      return;
     }
-    passMatch = true;
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator.adaptive(),
-        );
-      },
-    );
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passController.text.trim());
 
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pop();
+    return SizedBox.shrink();
+  }
+
+  Future signUp() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passController.text.trim(),
+      );
+      Application.router.navigateTo(context, Routes.mainPage,
+          transition: TransitionType.fadeIn);
+    } on FirebaseAuthException catch (e) {
+      debugPrint('Error: $e');
+      _showErrorMessage(e.message!);
+    }
   }
 
   @override
@@ -129,151 +135,148 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Row _buildLoginRef(BuildContext context) {
     return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'You have an account? ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (() {
-                      Application.router.navigateTo(context, Routes.login,
-                          transition: TransitionType.fadeIn);
-                    }),
-                    child: const Text(
-                      'Login now.',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'You have an account? ',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        GestureDetector(
+          onTap: (() {
+            Application.router.navigateTo(context, Routes.login,
+                transition: TransitionType.fadeIn);
+          }),
+          child: const Text(
+            'Login now.',
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Padding _buildSignUp() {
     return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: GestureDetector(
-                  onTap: signUp,
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: AppThemeData.lightColorScheme.primary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              );
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: GestureDetector(
+        onTap: signUp,
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppThemeData.lightColorScheme.primary,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Center(
+            child: Text(
+              'Sign up',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Container _buildConfirmPass() {
     return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.white,
-                    ),
-                    borderRadius: BorderRadius.circular(12), // Fillet edge
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20.0), // Hint padding
-                    child: TextFormField(
-                      controller: _confirmPassControl,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Confirm password',
-                        //fillColor: Colors.grey[200],
-                        //filled: true
-                      ),
-                      onFieldSubmitted: (value) => signUp(), // Enter submit
-                    ),
-                  ),
-                );
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        border: Border.all(
+          color: Colors.white,
+        ),
+        borderRadius: BorderRadius.circular(12), // Fillet edge
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20.0), // Hint padding
+        child: TextFormField(
+          controller: _confirmPassControl,
+          obscureText: true,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Confirm password',
+            //fillColor: Colors.grey[200],
+            //filled: true
+          ),
+          onFieldSubmitted: (value) => signUp(), // Enter submit
+        ),
+      ),
+    );
   }
 
   Padding _buildPassField() {
     return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25.0,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.white,
-                    ),
-                    borderRadius: BorderRadius.circular(12), // Fillet edge
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20.0), // Hint padding
-                    child: TextFormField(
-                      controller: _passController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Password',
-                        //fillColor: Colors.grey[200],
-                        //filled: true
-                      ),
-                      onFieldSubmitted: (value) {}, // Enter submit
-                    ),
-                  ),
-                ),
-              );
+      padding: const EdgeInsets.symmetric(
+        horizontal: 25.0,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: BorderRadius.circular(12), // Fillet edge
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0), // Hint padding
+          child: TextFormField(
+            controller: _passController,
+            obscureText: true,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Password',
+              //fillColor: Colors.grey[200],
+              //filled: true
+            ),
+            onFieldSubmitted: (value) {}, // Enter submit
+          ),
+        ),
+      ),
+    );
   }
 
   Padding _buildEmailField() {
     return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12), // Fillet edge
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20.0), // Hint padding
-                    child: TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Email',
-                      ),
-                    ),
-                  ),
-                ),
-              );
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(12), // Fillet edge
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0), // Hint padding
+          child: TextField(
+            controller: _emailController,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Email',
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Padding _buildBanner() {
     return Padding(
-                padding: const EdgeInsets.only(left: 1),
-                child: Hero(
-                  tag: 'dash',
-                  child: Image.asset(
-                    //'https://i.pinimg.com/originals/e1/72/51/e172517ad9cfb16a8f92ca1911ff66ba.jpg',
-                    Assets.appLogo,
-                    width: 250,
-                  ),
-                ),
-              );
+      padding: const EdgeInsets.only(left: 1),
+      child: Hero(
+        tag: 'dash',
+        child: Image.asset(
+          //'https://i.pinimg.com/originals/e1/72/51/e172517ad9cfb16a8f92ca1911ff66ba.jpg',
+          Assets.appLogo,
+          width: 250,
+        ),
+      ),
+    );
   }
 }

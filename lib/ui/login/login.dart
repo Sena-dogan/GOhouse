@@ -58,7 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
         email: email,
         password: password,
       );
-      debugPrint("Signed in");
+      var username = email.split('@')[0];
+      debugPrint("Signed in as $username");
     } on FirebaseAuthException catch (e) {
       debugPrint('Error: $e');
       _showErrorMessage(e.message!);
@@ -222,8 +223,8 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           GestureDetector(
             onTap: () {
-              // Application.router.navigateTo(context, Routes.forgot,
-              //     transition: TransitionType.fadeIn);
+              Application.router.navigateTo(context, Routes.forgotPassword,
+                  transition: TransitionType.fadeIn);
             },
             child: Text(
               'Forgot Password?',
