@@ -10,7 +10,8 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
-  Future updateUserData(String name, String surname ,String email, int number) async {
+  Future updateUserData(
+      String name, String surname, String email, int number) async {
     return await userCollection.doc(uid).set({
       'name': name,
       'email': email,
@@ -19,4 +20,13 @@ class DatabaseService {
     });
   }
 }
-  
+
+class Jobs {
+  late String id;
+  late String name;
+  late String category;
+  late String image;
+  late int prize;
+  late String description;
+  late Timestamp createdAt;
+}
