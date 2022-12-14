@@ -1,9 +1,11 @@
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
+import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/ui/pages/menu/hidden_drawer_menu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +18,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _controller = SidebarXController(selectedIndex: 0, extended: true);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,10 @@ class _HomePageState extends State<HomePage> {
           debugPrint("asd");
         },
       ),
-      title: Container(child: Image.asset(Assets.appLogo, fit: BoxFit.contain), width: 140,),
+      title: Container(
+        child: Image.asset(Assets.appLogo, fit: BoxFit.contain),
+        width: 140,
+      ),
       actions: [
         IconButton(
           icon: Icon(Icons.notifications),

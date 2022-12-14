@@ -1,20 +1,31 @@
 class UserData {
-  UserData._();
 
-  static String? uid;
-  static String? name;
-  static String? surname;
-  static String? email;
-  static String? password;
-  static int? phone;
-  static String? image;
+  late String uid;
+  late String name;
+  late String surname;
+  late String email;
+  late String password;
+  late int phone;
+  late String image;
 
-  UserData.fromMap(Map<String, dynamic> data) {
-    uid = data['uid'];
-    name = data['name'];
-    surname = data['surname'];
-    email = data['email'];
-    phone = data['phone'];
-    image = data['image'];
-  }
+  UserData({
+    required this.uid,
+    required this.name,
+    required this.surname,
+    required this.email,
+    required this.password,
+    required this.phone,
+    required this.image,
+  });
+
+  Map <String, dynamic> toJson() => {
+    'uid': uid,
+    'name': name,
+    'surname': surname,
+    'email': email,
+    'password': password,
+    'phone': phone,
+    'image': image,
+  };
+
 }

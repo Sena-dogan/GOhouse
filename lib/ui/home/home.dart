@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
+    
     _themeStore = Provider.of<ThemeStore>(context);
   }
 

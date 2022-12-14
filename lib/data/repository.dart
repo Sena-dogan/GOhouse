@@ -36,6 +36,18 @@ class Repository {
     }).catchError((error) => throw error);
   }
 
+  Future<JobListResponse> getJobs() async {
+    return await _postApi.getJobs().then((jobsList) {
+      return jobsList;
+    }).catchError((error) => throw error);
+  }
+
+  Future<JobCreateResponse> createJobs(JobCreateRequest request) async {
+    return await _postApi.createJob(request).then((jobsList) {
+      return jobsList;
+    }).catchError((error) => throw error);
+  }
+
   Future<List<Post>> findPostById(int id) {
     //creating filter
     List<Filter> filters = [];
@@ -66,10 +78,9 @@ class Repository {
       .then((id) => id)
       .catchError((error) => throw error);
 
-
   // Login:---------------------------------------------------------------------
   Future<bool> login(String email, String password) async {
-    return await Future.delayed(Duration(seconds: 2), ()=> true);
+    return await Future.delayed(Duration(seconds: 2), () => true);
   }
 
   Future<void> saveIsLoggedIn(bool value) =>
