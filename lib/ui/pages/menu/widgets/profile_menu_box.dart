@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,7 +28,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: MenuColors.tealBlue.withOpacity(0.4),
+          color: AppThemeData.lightThemeData.primaryColor.withOpacity(0.4),
         ),
         child: Icon(
           icon,
@@ -49,7 +50,7 @@ class ProfileMenuWidget extends StatelessWidget {
               ),
               child: Icon(
                 Icons.arrow_forward_ios_outlined,
-                color: MenuColors.midnightGreenEagleGreen2,
+                color: AppThemeData.lightThemeData.primaryColor,
                 size: 18.0,
               ),
             )

@@ -76,17 +76,17 @@ class EditProfileWidget extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: MenuColors.tealBlue.withOpacity(0.4),
+                        backgroundColor: AppThemeData.lightThemeData.primaryColor,
                         side: BorderSide.none,
                         shape: StadiumBorder(),
-                        elevation: 16,
-                        shadowColor: MenuColors.tealBlue.withOpacity(0.3),
+                        elevation: 12,
+                        shadowColor: AppThemeData.lightThemeData.primaryColor.withOpacity(0.3),
                       ),
                       child: Text(
                         "Kaydet",
                         style: GoogleFonts.tienne(
                           fontSize: 12,
-                          color: MenuColors.midnightGreenEagleGreen,
+                          color: MenuColors.white,
                         ),
                       ),
                     ),
