@@ -5,6 +5,7 @@ import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:gohouse/ui/pages/menu/Pages/contact_page.dart';
+import 'package:gohouse/ui/pages/menu/Pages/edit_profile_page.dart';
 import 'package:gohouse/ui/pages/menu/Pages/profile_page.dart';
 
 var loginHandler = Handler(handlerFunc: ((context, parameters) {
@@ -28,7 +29,10 @@ var contactHandler = Handler(handlerFunc: ((context, parameters) {
 }));
 
 var registerHandler = Handler(handlerFunc: ((context, parameters) {
-  return RegisterPage(showLoginPage: () {
-    
+  return RegisterPage(showLoginPage: () {  
   },);
+}));
+
+var editProfileHandler = Handler(handlerFunc: ((context, parameters) {
+  return EditProfileWidget();
 }));

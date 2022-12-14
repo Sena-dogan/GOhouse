@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gohouse/ui/pages/menu/hidden_drawer_menu.dart';
+import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 import 'package:gohouse/constants/app_theme.dart';
 
 class ContactPage extends StatelessWidget {
-  final _controller = SidebarXController(selectedIndex: 2, extended: true);
+  final _controller = SidebarXController(selectedIndex: 3, extended: true);
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ContactPage({super.key});

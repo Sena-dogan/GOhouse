@@ -1,6 +1,6 @@
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
-import 'package:gohouse/ui/pages/menu/hidden_drawer_menu.dart';
+import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
