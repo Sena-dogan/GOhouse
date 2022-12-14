@@ -15,6 +15,8 @@ class Routes {
   static const String chatPage = '/chat';
   static const String contactPage = '/contact';
   static const String registerPage = '/register';
+  static const String mainPage = '/main';
+  static const String forgotPassword = '/forgotPassword';
   static const String editProfilePage = '/account';
 
 
@@ -25,6 +27,8 @@ class Routes {
     router.define(chatPage, handler: chatHandler);
     router.define(contactPage, handler: contactHandler);
     router.define(registerPage, handler: registerHandler);
+    router.define(mainPage, handler: mainHandler);
+    router.define(forgotPassword, handler: forgotPasswordHandler);
     router.define(editProfilePage, handler: editProfileHandler);
     router.notFoundHandler = Handler(handlerFunc: ((context, parameters) {
       debugPrint("Route not found");

@@ -1,6 +1,8 @@
 import 'package:gohouse/ui/home/home.dart';
+import 'package:gohouse/ui/login/forgotPass.dart';
 import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/login/register.dart';
+import 'package:gohouse/ui/my_app.dart';
 import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
@@ -29,10 +31,19 @@ var contactHandler = Handler(handlerFunc: ((context, parameters) {
 }));
 
 var registerHandler = Handler(handlerFunc: ((context, parameters) {
-  return RegisterPage(showLoginPage: () {  
-  },);
+  return RegisterPage(
+    showLoginPage: () {},
+  );
+}));
+
+var mainHandler = Handler(handlerFunc: ((context, parameters) {
+  return MainPage();
 }));
 
 var editProfileHandler = Handler(handlerFunc: ((context, parameters) {
   return EditProfileWidget();
+}));
+
+var forgotPasswordHandler = Handler(handlerFunc: ((context, parameters) {
+  return ForgotPassPage();
 }));
