@@ -4,13 +4,7 @@ import 'package:gohouse/ui/pages/menu/hidden_drawer_menu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sidebarx/sidebarx.dart';
-// import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
-
-
-import '../../constants/app_theme.dart';
-// import 'package:gohouse/ui/pages/menu/hidden_drawer_menu.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -35,38 +29,27 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSizeWidget _appBar() {
     return AppBar(
-      title: Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
-              debugPrint("asd");
-            },
-          ),
-          SizedBox(
-            width: 100.0,
-          ),
-          Text(
-            "GOHouse",
-            style: GoogleFonts.roboto(
-                fontSize: 23, color: AppThemeData.lightThemeData.primaryColor),
-          ),
-          SizedBox(
-            width: 54.0,
-          ),
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {},
-          ),
-        ],
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          _scaffoldKey.currentState?.openDrawer();
+          debugPrint("asd");
+        },
       ),
-      elevation: 2.0,
+      title: Container(child: Image.asset(Assets.appLogo, fit: BoxFit.contain), width: 140,),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.notifications),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Icon(Icons.more_vert),
+          onPressed: () {},
+        ),
+      ],
+      elevation: 5.0,
       automaticallyImplyLeading: false,
+      centerTitle: true,
     );
   }
 
@@ -263,4 +246,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

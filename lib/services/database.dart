@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -11,22 +11,16 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('user');
 
   Future updateUserData(
-      String name, String surname, String email, int number) async {
+      String name, String surname, String email, int number, String image) async {
     return await userCollection.doc(uid).set({
+      'uid': uid,
       'name': name,
       'email': email,
       'surname': surname,
       'phone': number,
+      'image': image,
     });
   }
 }
 
-class Jobs {
-  late String id;
-  late String name;
-  late String category;
-  late String image;
-  late int prize;
-  late String description;
-  late Timestamp createdAt;
-}
+

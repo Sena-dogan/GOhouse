@@ -1,6 +1,3 @@
-import 'package:gohouse/ui/home/home.dart';
-import 'package:gohouse/ui/login/login.dart';
-import 'package:gohouse/ui/splash/splash.dart';
 import 'package:gohouse/utils/routes/routehandlers.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';

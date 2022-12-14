@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gohouse/constants/app_theme.dart';
@@ -64,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final uid = user!.uid;
       // Create a new document for the user with the uid
       await DatabaseService(uid: uid)
-          .updateUserData(email.split("@")[0], 'surname', email, 0);
+          .updateUserData(email.split("@")[0], '', email, 0, '');
       Application.router.navigateTo(context, Routes.mainPage,
           transition: TransitionType.fadeIn);
     } on FirebaseAuthException catch (e) {
@@ -77,66 +75,53 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //_buildBanner(),
-                const SizedBox(height: 30),
-                Text(
-                  'Register Now!',
-                  style: GoogleFonts.bebasNeue(fontSize: 70),
-                ),
-                Text(
-                  'and be a part of the GOhouse.',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                _buildEmailField(),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                _buildPassField(),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25.0,
-                  ),
-                  child: _buildConfirmPass(),
-                ),
-                const SizedBox(
-                  height: 17,
-                ),
-                Visibility(
-                  visible: !passMatch,
-                  child: Text(
-                    _passController.text.length < 6
-                        ? 'Password must be at least 6 characters'
-                        : 'Incorrect email or password.',
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                // Sign in button
-                _buildSignUp(),
+      body: _buildBody(context),
+    );
+  }
 
-                const SizedBox(height: 10),
+  SafeArea _buildBody(BuildContext context) {
+    return SafeArea(
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //_buildBanner(),
+              const SizedBox(height: 30),
+              Text(
+                'Register Now!',
+                style: GoogleFonts.bebasNeue(fontSize: 70),
+              ),
+              Text(
+                'and be a part of the GOhouse.',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 13,
+                ),
+              ),
+              const SizedBox(height: 30),
+              _buildField(_emailController, 'Email', (value){}, false),
+              const SizedBox(
+                height: 10.0,
+              ),
+              _buildField(_passController, 'Password', (value){}, true),
+              const SizedBox(
+                height: 10.0,
+              ), 
+              _buildField(_confirmPassControl, 'Confirm Password', (value) => signUp(), true),
+              const SizedBox(
+                height: 17,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              // Sign in button
+              _buildSignUp(),
 
-                // Register
-                _buildLoginRef(context)
-              ],
-            ),
+              const SizedBox(height: 10),
+
+              // Register
+              _buildLoginRef(context)
+            ],
           ),
         ),
       ),
@@ -196,33 +181,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Container _buildConfirmPass() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        border: Border.all(
-          color: Colors.white,
-        ),
-        borderRadius: BorderRadius.circular(12), // Fillet edge
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20.0), // Hint padding
-        child: TextFormField(
-          controller: _confirmPassControl,
-          obscureText: true,
-          decoration: const InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Confirm password',
-            //fillColor: Colors.grey[200],
-            //filled: true
-          ),
-          onFieldSubmitted: (value) => signUp(), // Enter submit
-        ),
-      ),
-    );
-  }
-
-  Padding _buildPassField() {
+    Widget _buildField(
+    TextEditingController _controller,
+    String hint,
+    void Function(String) onFieldSubmitted,
+    bool isPassword,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 25.0,
@@ -238,38 +202,15 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Padding(
           padding: const EdgeInsets.only(left: 20.0), // Hint padding
           child: TextFormField(
-            controller: _passController,
-            obscureText: true,
-            decoration: const InputDecoration(
+            controller: _controller,
+            obscureText: isPassword,
+            decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: 'Password',
+              hintText: hint,
               //fillColor: Colors.grey[200],
               //filled: true
-            ),
-            onFieldSubmitted: (value) {}, // Enter submit
-          ),
-        ),
-      ),
-    );
-  }
-
-  Padding _buildEmailField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(12), // Fillet edge
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0), // Hint padding
-          child: TextField(
-            controller: _emailController,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Email',
-            ),
+            ), // Enter submit
+            onFieldSubmitted: onFieldSubmitted,
           ),
         ),
       ),

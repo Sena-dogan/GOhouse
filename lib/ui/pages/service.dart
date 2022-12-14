@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gohouse/models/jobs.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constants/app_theme.dart';
+import 'package:gohouse/constants/app_theme.dart';
 
 class Service extends StatelessWidget {
   const Service({super.key});
@@ -25,8 +26,8 @@ class Service extends StatelessWidget {
       automaticallyImplyLeading: false,
     );
   }
-  
-  Widget _body(BuildContext context){
-    return Center(child: Text("Love u"),);
+
+  Widget _body(BuildContext context) {
+    return Center(child: Text('hi'));
   }
 }

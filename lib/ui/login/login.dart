@@ -4,19 +4,13 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
-import 'package:gohouse/data/sharedpref/constants/preferences.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
-import 'package:gohouse/utils/device/device_utils.dart';
-import 'package:gohouse/widgets/progress_indicator_widget.dart';
-import 'package:gohouse/widgets/textfield_widget.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -136,9 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             _buildWelcome(),
             SizedBox(height: 70.0),
-            _buildUserIdField(),
+            _buildField(_userEmailController, 'Email', (p0) { }, false),
             SizedBox(height: 20.0),
-            _buildPasswordField(),
+            _buildField(_passwordController, 'Password', (p0) => signIn(), true),
             SizedBox(height: 12.0),
             _buildForgotPasswordButton(),
             SizedBox(height: 12.0),
@@ -162,58 +156,42 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
-  Widget _buildUserIdField() {
+    Widget _buildField(
+    TextEditingController _controller,
+    String hint,
+    void Function(String) onFieldSubmitted,
+    bool isPassword,
+  ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 1.0,
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey[200],
-          border: Border.all(color: Colors.white),
+          border: Border.all(
+            color: Colors.white,
+          ),
           borderRadius: BorderRadius.circular(12), // Fillet edge
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 20.0), // Hint padding
-          child: TextField(
-            controller: _userEmailController,
+          child: TextFormField(
+            controller: _controller,
+            obscureText: isPassword,
             decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: 'Email',
-            ),
+              hintText: hint,
+              //fillColor: Colors.grey[200],
+              //filled: true
+            ), // Enter submit
+            onFieldSubmitted: onFieldSubmitted,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildPasswordField() {
-    return Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 1.0,
-        ),
-        child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              border: Border.all(
-                color: Colors.white,
-              ),
-              borderRadius: BorderRadius.circular(12), // Fillet edge
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0), // Hint padding
-              child: TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Password',
-                  //fillColor: Colors.grey[200],
-                  //filled: true
-                ),
-                onFieldSubmitted: ((value) => signIn()), // Enter submit
-              ),
-            )));
-  }
 
   Widget _buildForgotPasswordButton() {
     return Padding(
@@ -321,21 +299,3 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 }
-
-
-  // Text(
-  //       'Hosgeldiniz',
-  //       style: TextStyle(
-  //         color: Colors.black87,
-  //         fontFamily: 'Billabong',
-  //         fontSize: 70,
-  //         fontWeight: FontWeight.w100,
-  //         shadows: <Shadow>[
-  //           Shadow(
-  //             offset: Offset(0, 2.2),
-  //             blurRadius: 199.0,
-  //             color: Colors.white,
-  //           ),
-  //         ],
-  //       ),
-  //     ),
