@@ -14,6 +14,8 @@ class Routes {
   static const String registerPage = '/register';
   static const String mainPage = '/main';
   static const String forgotPassword = '/forgotPassword';
+  static const String editProfilePage = '/account';
+
 
   static void configureRoutes(FluroRouter router) {
     router.define(login, handler: loginHandler);
@@ -24,6 +26,7 @@ class Routes {
     router.define(registerPage, handler: registerHandler);
     router.define(mainPage, handler: mainHandler);
     router.define(forgotPassword, handler: forgotPasswordHandler);
+    router.define(editProfilePage, handler: editProfileHandler);
     router.notFoundHandler = Handler(handlerFunc: ((context, parameters) {
       debugPrint("Route not found");
       return;

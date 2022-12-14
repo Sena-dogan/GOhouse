@@ -1,4 +1,4 @@
-import 'package:gohouse/ui/pages/menu/hidden_drawer_menu.dart';
+import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sidebarx/sidebarx.dart';

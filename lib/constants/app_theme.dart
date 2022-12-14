@@ -72,6 +72,7 @@ class AppThemeData {
     brightness: Brightness.light,
   );
 
+
   static const ColorScheme darkColorScheme = ColorScheme(
     primary: Color(0xFFFF8383),
     primaryContainer: Color(0xFF1CDEC9),
