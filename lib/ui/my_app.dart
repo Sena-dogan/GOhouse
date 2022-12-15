@@ -3,6 +3,7 @@ import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/strings.dart';
 import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/di/components/service_locator.dart';
+import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:gohouse/ui/home/home.dart';
 import 'package:gohouse/ui/login/login.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   final ThemeStore _themeStore = ThemeStore(getIt<Repository>());
+  final JobsStore _jobsStore = JobsStore(getIt<Repository>());
 
   @override
   void didChangeDependencies() {
@@ -38,6 +40,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         Provider<ThemeStore>(create: (_) => _themeStore),
+        Provider<JobsStore>(create: (_) => _jobsStore),
       ],
       child: Observer(
         name: 'global-observer',

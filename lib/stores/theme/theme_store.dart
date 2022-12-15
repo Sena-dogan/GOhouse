@@ -45,7 +45,7 @@ abstract class _ThemeStore with Store {
 
   // dispose:-------------------------------------------------------------------
   @override
-  dispose() {
-
+  void dispose() {
+    
   }
 }

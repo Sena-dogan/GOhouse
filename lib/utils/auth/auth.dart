@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:password_policy/password_policy.dart';
 
 class Auth {
@@ -22,4 +21,5 @@ class Auth {
         PasswordCheck(password: password, passwordPolicy: passwordPolicy);
     return passwordCheck.isValid;
   }
+  
 }
