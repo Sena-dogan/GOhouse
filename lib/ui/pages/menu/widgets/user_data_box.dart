@@ -21,7 +21,7 @@ class UserDataBoxWidget extends StatelessWidget {
             icon,
             color: Colors.black,
           ),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: Colors.black),
           ),

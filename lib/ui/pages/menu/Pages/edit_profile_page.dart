@@ -36,56 +36,95 @@ class EditProfileWidget extends StatelessWidget {
         padding: EdgeInsets.all(MediaQuery.of(context).size.width) / 7,
         child: Column(
           children: [
-            Container(
-              width: 120,
-              height: 120,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(120),
-                child: Image.asset(Assets.pikachuuu),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(100),
+            Stack(
+              children: [
+                SizedBox(
+                  width: 120,
+                  height: 120,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: Image.asset(Assets.pikachuuu),
+                  ),
                 ),
-                border: Border.all(
-                    color: Colors.black, width: 2.0, style: BorderStyle.solid),
-              ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    width: 35,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      color: AppThemeData.lightThemeData.primaryColor.withOpacity(0.7),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(100),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.camera_alt_outlined,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  ),
+                )
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(height: 50),
+            // Container(
+            //   width: 120,
+            //   height: 120,
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(120),
+            //     child: Image.asset(Assets.pikachuuu),
+            //   ),
+            //   decoration: BoxDecoration(
+            //     color: Colors.transparent,
+            //     borderRadius: BorderRadius.all(
+            //       Radius.circular(100),
+            //     ),
+            //     border: Border.all(
+            //         color: Colors.black, width: 2.0, style: BorderStyle.solid),
+            //   ),
+            // ),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
             Form(
               child: Column(
                 children: [
                   UserDataBoxWidget(
-                      title: "Ad Soyad", icon: Icons.person_outline),
-                  SizedBox(height: MediaQuery.of(context).size.height / 130),
-                  UserDataBoxWidget(title: "Email", icon: Icons.email_outlined),
-                  SizedBox(height: MediaQuery.of(context).size.height / 130),
+                    title: "Ad Soyad",
+                    icon: Icons.person_outline,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 70),
                   UserDataBoxWidget(
-                      title: "Telefon", icon: Icons.phone_outlined),
-                  SizedBox(height: MediaQuery.of(context).size.height / 130),
+                    title: "Email",
+                    icon: Icons.email_outlined,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 70),
                   UserDataBoxWidget(
-                      title: "Şifre", icon: Icons.password_outlined),
+                    title: "Telefon",
+                    icon: Icons.phone_outlined,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 70),
+                  UserDataBoxWidget(
+                    title: "Şifre",
+                    icon: Icons.password_outlined,
+                  ),
                   SizedBox(height: MediaQuery.of(context).size.height / 30),
                   SizedBox(
-                    height: 40,
+                    height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppThemeData.lightThemeData.primaryColor,
+                        backgroundColor:
+                            AppThemeData.lightThemeData.primaryColor,
                         side: BorderSide.none,
-                        shape: StadiumBorder(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         elevation: 12,
-                        shadowColor: AppThemeData.lightThemeData.primaryColor.withOpacity(0.3),
+                        shadowColor: AppThemeData.lightThemeData.primaryColor
+                            .withOpacity(0.3),
                       ),
                       child: Text(
                         "Kaydet",
                         style: GoogleFonts.tienne(
-                          fontSize: 12,
+                          fontSize: 14,
                           color: MenuColors.white,
                         ),
                       ),

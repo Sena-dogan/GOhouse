@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:gohouse/ui/my_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'di/components/service_locator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
