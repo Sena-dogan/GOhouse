@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/colors.dart';
 
-class UserDataBoxWidget extends StatelessWidget {
-  const UserDataBoxWidget({
+class DataBoxWidget extends StatelessWidget {
+  DataBoxWidget({
     required this.title,
     required this.icon,
-    super.key});
+    super.key, required this.controller, this.minLine = 1, this.maxLine = 1});
 
   final String title;
   final IconData icon;
+  final TextEditingController controller;
+  final int minLine;
+  final int maxLine;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        controller: controller,
         cursorColor: MenuColors.midnightGreenEagleGreen,
+        minLines: minLine,
+        maxLines: maxLine,
         decoration: InputDecoration(
           label: Text(title),
           prefixIcon: Icon(

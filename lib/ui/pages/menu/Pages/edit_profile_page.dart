@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/colors.dart';
-import 'package:gohouse/ui/pages/menu/widgets/user_data_box.dart';
+import 'package:gohouse/ui/pages/menu/widgets/data_box.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/constants/app_theme.dart';
 
-class EditProfileWidget extends StatelessWidget {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+class EditProfileWidget extends StatefulWidget {
+
   EditProfileWidget({super.key});
+
+  @override
+  State<EditProfileWidget> createState() => _EditProfileWidgetState();
+}
+
+class _EditProfileWidgetState extends State<EditProfileWidget> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _surnameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _surnameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,24 +108,28 @@ class EditProfileWidget extends StatelessWidget {
             Form(
               child: Column(
                 children: [
-                  UserDataBoxWidget(
-                    title: "Ad Soyad",
+                  DataBoxWidget(
+                    controller: _nameController,
+                    title: "Ad",
                     icon: Icons.person_outline,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  UserDataBoxWidget(
+                  DataBoxWidget(
+                    controller: _surnameController,
+                    title: "Soyad",
+                    icon: Icons.person_outline,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 70),
+                  DataBoxWidget(
+                    controller: _emailController,
                     title: "Email",
                     icon: Icons.email_outlined,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  UserDataBoxWidget(
-                    title: "Telefon",
+                  DataBoxWidget(
+                    controller: _phoneController,
+                    title: "telefon",
                     icon: Icons.phone_outlined,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  UserDataBoxWidget(
-                    title: "Şifre",
-                    icon: Icons.password_outlined,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 30),
                   SizedBox(
