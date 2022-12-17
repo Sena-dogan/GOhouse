@@ -54,6 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       var username = email.split('@')[0];
       debugPrint("Signed in as $username");
+      if (FirebaseAuth.instance.currentUser != null)
+        Application.router.navigateTo(context, Routes.home,
+            transition: TransitionType.fadeIn);
     } on FirebaseAuthException catch (e) {
       debugPrint('Error: $e');
       _showErrorMessage(e.message!);
@@ -130,9 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             _buildWelcome(),
             SizedBox(height: 70.0),
-            _buildField(_userEmailController, 'Email', (p0) { }, false),
+            _buildField(_userEmailController, 'Email', (p0) {}, false),
             SizedBox(height: 20.0),
-            _buildField(_passwordController, 'Password', (p0) => signIn(), true),
+            _buildField(
+                _passwordController, 'Password', (p0) => signIn(), true),
             SizedBox(height: 12.0),
             _buildForgotPasswordButton(),
             SizedBox(height: 12.0),
@@ -156,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-    Widget _buildField(
+  Widget _buildField(
     TextEditingController _controller,
     String hint,
     void Function(String) onFieldSubmitted,
@@ -192,7 +196,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
   Widget _buildForgotPasswordButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 7),
@@ -223,7 +226,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: GestureDetector(
         onTap: () {
           debugPrint('Sign in button pressed');
-          signIn();
+          setState(() {
+            signIn();
+          });
         },
         child: Container(
           padding: EdgeInsets.all(20),
@@ -276,7 +281,8 @@ class _LoginScreenState extends State<LoginScreen> {
         GestureDetector(
           onTap: () {
             debugPrint('Sign up button pressed');
-            Application.router.navigateTo(context, Routes.registerPage,transition: TransitionType.fadeIn);
+            Application.router.navigateTo(context, Routes.registerPage,
+                transition: TransitionType.fadeIn);
           },
           child: Text(
             'Register now.',
@@ -289,7 +295,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
-    // dispose:-------------------------------------------------------------------
+
+  // dispose:-------------------------------------------------------------------
   @override
   void dispose() {
     // Clean up the controller when the Widget is removed from the Widget tree

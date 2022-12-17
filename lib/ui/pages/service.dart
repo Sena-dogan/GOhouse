@@ -5,6 +5,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gohouse/data/network/apis/posts/post_api.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
+import 'package:gohouse/ui/pages/job_page.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:gohouse/constants/app_theme.dart';
@@ -40,7 +43,8 @@ class _ServiceState extends State<Service> {
       appBar: _appBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _jobsStore.addData();
+          _jobsStore.editData(
+              JobEditRequest(id: 'gFCiargAo9SbNcJSeCOU', price: '311'));
         },
         child: Icon(Icons.add),
       ),
@@ -63,42 +67,51 @@ class _ServiceState extends State<Service> {
   Widget _body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Observer(builder: (context) {
-      if (_jobsStore.jobs.isEmpty) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      return Container(
-        child: ListView.builder(
-          itemCount: _jobsStore.jobs.length,
-          itemBuilder: ((context, index) {
-            Jobs job = _jobsStore.jobs[index];
-            return Card(
-              color: Colors.amber,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                width: size.width * 0.9,
-                child: Text("${job.name}"),
-              ),
-            );
-          }),
-        ),
-      );
+      return _jobsStore.loading
+          ? LoadingWidget()
+          : _jobsStore.jobs.isEmpty
+              ? emptyWidget()
+              : BuildListWidget();
     });
-    // return StreamBuilder(
-    //     stream: getJobs(),
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
-    //         final jobs = snapshot.data!;
-
-    //         return ListView(
-    //             // children: jobs.map().toList(),
-    //             );
-    //       }
-    //     });
   }
 
-  Widget _buildJob(Job job) {
-    return Container();
+  Container BuildListWidget() {
+    return Container(
+      child: ListView.builder(
+        itemCount: _jobsStore.jobs.length,
+        itemBuilder: ((context, index) {
+          Jobs job = _jobsStore.jobs[index];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 28,
+                  backgroundImage: NetworkImage('${job.image}'),
+                ),
+                title: Text("${job.name}"),
+                subtitle: Text("${job.description}\n${job.price} tl"),
+                //trailing: IconButton(icon: Icon(Icons.arrow_forward), onPressed: () {}),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => JobPage(job: job),
+                )),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
   }
+
+  Center LoadingWidget() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+  
+Widget emptyWidget() {
+  return Center(
+    child: Text("Henüz bir hizmet eklenmemiş"));
+}
+  
 }

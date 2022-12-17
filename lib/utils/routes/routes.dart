@@ -16,7 +16,6 @@ class Routes {
   static const String forgotPassword = '/forgotPassword';
   static const String editProfilePage = '/account';
 
-
   static void configureRoutes(FluroRouter router) {
     router.define(login, handler: loginHandler);
     router.define(home, handler: homeHandler);

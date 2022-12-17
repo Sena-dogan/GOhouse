@@ -1,6 +1,6 @@
 import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:gohouse/ui/pages/explore_page.dart';
-import 'package:gohouse/ui/pages/home_page.dart';
+import 'package:gohouse/ui/home/home_page.dart';
 import 'package:gohouse/ui/pages/my_services.dart';
 import 'package:gohouse/ui/pages/service.dart';
 import 'package:flutter/material.dart';
@@ -40,22 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: pages[i],
       bottomNavigationBar: _bottomNavBar(),
-    );
-  }
-
-  // app bar methods:-----------------------------------------------------------
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text("hi"),
-    );
-  }
-
-  // body methods:--------------------------------------------------------------
-  Widget _buildBody() {
-    return Material(
-      child: Center(
-        child: Text("Hi"),
-      ),
     );
   }
 

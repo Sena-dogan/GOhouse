@@ -1,8 +1,9 @@
-import 'package:gohouse/ui/home/home.dart';
-import 'package:gohouse/ui/login/forgotPass.dart';
+import 'package:gohouse/widgets/navigation_bar.dart';
+import 'package:gohouse/ui/login/forgot_pass.dart';
 import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/login/register.dart';
 import 'package:gohouse/ui/my_app.dart';
+import 'package:gohouse/ui/pages/job_page.dart';
 import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
 import 'package:fluro/fluro.dart';
 import 'package:gohouse/ui/pages/menu/Pages/contact_page.dart';

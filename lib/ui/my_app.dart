@@ -5,7 +5,7 @@ import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/di/components/service_locator.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
-import 'package:gohouse/ui/home/home.dart';
+import 'package:gohouse/widgets/navigation_bar.dart';
 import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/splash/splash.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
         if (snapshot.hasData)
           return HomeScreen();
         else
-          return LoginScreen();
+          return SplashScreen();
       },
     ));
   }

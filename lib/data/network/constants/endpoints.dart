@@ -15,4 +15,7 @@ class Endpoints {
   static const String getPosts = baseUrl + "/posts";
   static const String getJobList = baseUrl + "/jobs";
   static const String postJobList = baseUrl + "/jobs";
+  static String deleteJob = baseUrl + "/jobs/remove";
+  static String editJob = baseUrl + "/jobs/update";
+  static String getJobByUser = baseUrl + "/jobs/user";
 }

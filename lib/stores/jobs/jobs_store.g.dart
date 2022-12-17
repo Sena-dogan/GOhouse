@@ -28,7 +28,7 @@ mixin _$JobsStore on _JobsStore, Store {
       AsyncAction('_JobsStore.getJobs', context: context);
 
   @override
-  Future getJobs() {
+  Future<dynamic> getJobs() {
     return _$getJobsAsyncAction.run(() => super.getJobs());
   }
 
@@ -36,11 +36,33 @@ mixin _$JobsStore on _JobsStore, Store {
       ActionController(name: '_JobsStore', context: context);
 
   @override
-  void addData() {
+  void addData(JobCreateRequest asd) {
     final _$actionInfo =
         _$_JobsStoreActionController.startAction(name: '_JobsStore.addData');
     try {
-      return super.addData();
+      return super.addData(asd);
+    } finally {
+      _$_JobsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void deleteData(JobDeleteRequest id) {
+    final _$actionInfo =
+        _$_JobsStoreActionController.startAction(name: '_JobsStore.deleteData');
+    try {
+      return super.deleteData(id);
+    } finally {
+      _$_JobsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void editData(JobEditRequest id) {
+    final _$actionInfo =
+        _$_JobsStoreActionController.startAction(name: '_JobsStore.editData');
+    try {
+      return super.editData(id);
     } finally {
       _$_JobsStoreActionController.endAction(_$actionInfo);
     }

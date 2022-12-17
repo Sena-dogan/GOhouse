@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         icon: Icon(Icons.menu),
         onPressed: () {
           _scaffoldKey.currentState?.openDrawer();
-          debugPrint("asd");
+          debugPrint("Open Drawer");
         },
       ),
       title: Container(

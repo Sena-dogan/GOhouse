@@ -27,53 +27,54 @@ class ExplorePage extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(Assets.locationBanner),
-        SizedBox(
-          height: 70,
-        ),
-        //TODO: size control
-        Text(
-          "Konumunu Etkinleştir",
-          style: GoogleFonts.roboto(
-            fontWeight: FontWeight.bold,
-            fontSize: 29,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(Assets.locationBanner),
+          SizedBox(
+            height: 70,
           ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        Text(
-          "Semtindeki en iyi temizlik personellerini görmek için konumunu etkinleştirmelisin.",
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        ElevatedButton(
-          style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all(
-                Size(200, 50),
-              ),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              )),
-          onPressed: () {},
-          child: Text(
+          Text(
             "Konumunu Etkinleştir",
             style: GoogleFonts.roboto(
-              fontSize: 14,
-              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 29,
             ),
+            textAlign: TextAlign.center,
           ),
-        )
-      ],
+          SizedBox(
+            height: 40,
+          ),
+          Text(
+            "Semtindeki en iyi temizlik personellerini görmek için konumunu etkinleştirmelisin.",
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          ElevatedButton(
+            style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(
+                  Size(200, 50),
+                ),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                )),
+            onPressed: () {},
+            child: Text(
+              "Konumunu Etkinleştir",
+              style: GoogleFonts.roboto(
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
