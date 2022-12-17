@@ -107,16 +107,23 @@ class ProfilePage extends StatelessWidget {
             ),
             ////MENU
             ProfileMenuWidget(
-                title: "Profili Düzenle",
-                icon: Icons.person_outlined,
-                onPress: () {
-                  Application.router.navigateTo(context, Routes.editProfilePage,
-                      transition: TransitionType.fadeIn);
-                }),
+              title: "Profili Düzenle",
+              icon: Icons.person_outlined,
+              onPress: () {
+                Application.router.navigateTo(context, Routes.editProfilePage,
+                    transition: TransitionType.fadeIn);
+              },
+            ),
             ProfileMenuWidget(
               title: "Şifreyi Değiştir",
               icon: Icons.password_outlined,
-              onPress: () {},
+              onPress: () {
+                Application.router.navigateTo(
+                  context,
+                  Routes.changePassword,
+                  transition: TransitionType.fadeIn,
+                );
+              },
             ),
             Divider(),
             SizedBox(

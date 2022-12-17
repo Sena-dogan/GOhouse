@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 i = value;
               });
             },
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(8.0),
             tabs: [
               GButton(
                 icon: Icons.home_outlined,

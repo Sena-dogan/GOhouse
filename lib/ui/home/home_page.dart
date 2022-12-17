@@ -1,9 +1,12 @@
+import 'package:fluro/fluro.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
@@ -50,11 +53,23 @@ class _HomePageState extends State<HomePage> {
       actions: [
         IconButton(
           icon: Icon(Icons.notifications),
-          onPressed: () {},
+          onPressed: () {
+            Application.router.navigateTo(
+              context,
+              Routes.notifProfilePage,
+              transition: TransitionType.fadeIn,
+            );
+          },
         ),
         IconButton(
           icon: Icon(Icons.more_vert),
-          onPressed: () {},
+          onPressed: () {
+            Application.router.navigateTo(
+              context,
+              Routes.servePage,
+              transition: TransitionType.inFromRight,
+            );
+          },
         ),
       ],
       elevation: 5.0,
