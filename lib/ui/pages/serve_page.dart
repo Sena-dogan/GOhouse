@@ -43,6 +43,7 @@ class _ServePageState extends State<ServePage> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: true,
+      centerTitle: true,
     );
   }
 
@@ -52,76 +53,85 @@ class _ServePageState extends State<ServePage> {
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            Container(
-              decoration: BoxDecoration(border: Border.all()),
-              child: IconButton(
-                iconSize: 100,
-                onPressed: () {},
-                icon: Icon(Icons.file_upload_outlined),
-              ),
-            ),
+            UploadImageIcon(),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Text("Upload Image"),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            Padding(
-                padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.height) * 0.04,
-                child: Form(
-                  child: Column(
-                    children: [
-                      DataBoxWidget(
-                          title: "Kategori",
-                          icon: Icons.category_outlined,
-                          controller: _categoryController),
-                      SizedBox(height: MediaQuery.of(context).size.height / 50),
-                      DataBoxWidget(
-                          title: "Hizmet İsmi",
-                          icon: Icons.image_outlined,
-                          controller: _nameController),
-                      SizedBox(height: MediaQuery.of(context).size.height / 50),
-                      DataBoxWidget(
-                          title: "Ücret",
-                          icon: Icons.price_check_outlined,
-                          controller: _priceController),
-                      SizedBox(height: MediaQuery.of(context).size.height / 50),
-                      DataBoxWidget(
-                          title: "Açıklama",
-                          icon: Icons.description_outlined,
-                          controller: _descriptionController,
-                          maxLine: 4,
-                          minLine: 2,),
-                      SizedBox(height: MediaQuery.of(context).size.height / 50),
-                      SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                AppThemeData.lightThemeData.primaryColor,
-                            side: BorderSide.none,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12)),
-                            elevation: 12,
-                            shadowColor: AppThemeData.lightThemeData.primaryColor
-                                .withOpacity(0.3),
-                          ),
-                          child: Text(
-                            "Gönder",
-                            style: GoogleFonts.tienne(
-                              fontSize: 14,
-                              color: MenuColors.white,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
+            _FieldPreview(context)
           ],
         ),
       ),
     );
+  }
+
+  Container UploadImageIcon() {
+    return Container(
+            decoration: BoxDecoration(border: Border.all()),
+            child: IconButton(
+              iconSize: 100,
+              onPressed: () {},
+              icon: Icon(Icons.file_upload_outlined),
+            ),
+          );
+  }
+
+  Padding _FieldPreview(BuildContext context) {
+    return Padding(
+              padding:
+                  EdgeInsets.all(MediaQuery.of(context).size.height) * 0.04,
+              child: Form(
+                child: Column(
+                  children: [
+                    DataBoxWidget(
+                        title: "Kategori",
+                        icon: Icons.category_outlined,
+                        controller: _categoryController),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
+                    DataBoxWidget(
+                        title: "Hizmet İsmi",
+                        icon: Icons.image_outlined,
+                        controller: _nameController),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
+                    DataBoxWidget(
+                        title: "Ücret",
+                        icon: Icons.price_check_outlined,
+                        controller: _priceController,
+                        keyboardType: TextInputType.number,),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
+                    DataBoxWidget(
+                        title: "Açıklama",
+                        icon: Icons.description_outlined,
+                        controller: _descriptionController,
+                        maxLine: 4,
+                        minLine: 2,),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
+                    SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              AppThemeData.lightThemeData.primaryColor,
+                          side: BorderSide.none,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          elevation: 12,
+                          shadowColor: AppThemeData.lightThemeData.primaryColor
+                              .withOpacity(0.3),
+                        ),
+                        child: Text(
+                          "Gönder",
+                          style: GoogleFonts.tienne(
+                            fontSize: 14,
+                            color: MenuColors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
   }
 }

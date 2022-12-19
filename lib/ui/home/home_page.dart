@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
+import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +23,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _controller = SidebarXController(selectedIndex: 0, extended: true);
-
+  late UserStore _userStore;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _userStore = Provider.of<UserStore>(context);
+    _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
   }
 
   @override

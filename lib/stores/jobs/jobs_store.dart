@@ -51,7 +51,7 @@ abstract class _JobsStore with Store {
       fetchJobsFuture.then((jobResponse) {
         jobResponse?.jobs?.forEach((element) {
           jobs.add(element);
-          print(element.name);
+          //print(element.name);
         });
       });
     } catch (e) {
@@ -88,7 +88,7 @@ abstract class _JobsStore with Store {
       fetchJobsWithUserFuture.then((jobResponse) {
         jobResponse?.jobs?.forEach((element) {
           jobs.add(element);
-          print(element.name);
+          //print(element.name);
         });
       });
     } catch (e) {

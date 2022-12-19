@@ -215,7 +215,7 @@ class JobEditRequest {
 
   JobEditRequest.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    image = image!.isEmpty ?? json['image'];
+    image = json['image'];
     price = json['price'];
     name = json['name'];
     description = json['description'];

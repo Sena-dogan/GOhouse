@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/colors.dart';
+import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/widgets/data_box.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/constants/app_theme.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileWidget extends StatefulWidget {
-
   EditProfileWidget({super.key});
 
   @override
@@ -14,6 +15,7 @@ class EditProfileWidget extends StatefulWidget {
 }
 
 class _EditProfileWidgetState extends State<EditProfileWidget> {
+  late UserStore _userStore;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _nameController = TextEditingController();
@@ -21,6 +23,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
 
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    _userStore = Provider.of<UserStore>(context);
+  }
   @override
   void dispose() {
     _nameController.dispose();
@@ -74,7 +82,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     width: 35,
                     height: 35,
                     decoration: BoxDecoration(
-                      color: AppThemeData.lightThemeData.primaryColor.withOpacity(0.7),
+                      color: AppThemeData.lightThemeData.primaryColor
+                          .withOpacity(0.7),
                       borderRadius: BorderRadius.all(
                         Radius.circular(100),
                       ),
@@ -141,7 +150,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         backgroundColor:
                             AppThemeData.lightThemeData.primaryColor,
                         side: BorderSide.none,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
                         elevation: 12,
                         shadowColor: AppThemeData.lightThemeData.primaryColor
                             .withOpacity(0.3),

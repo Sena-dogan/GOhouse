@@ -18,4 +18,6 @@ class Endpoints {
   static String deleteJob = baseUrl + "/jobs/remove";
   static String editJob = baseUrl + "/jobs/update";
   static String getJobByUser = baseUrl + "/jobs/user";
+  static String getUserById = baseUrl + "/user/get";
+  static String updateUser = baseUrl + "/user/update";
 }

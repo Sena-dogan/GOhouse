@@ -11,6 +11,7 @@ class JobPage extends StatelessWidget {
       appBar: _buildAppBar(job),
       body: _buildBody(job),
     );
+
   }
 }
 
@@ -23,7 +24,7 @@ PreferredSizeWidget _buildAppBar(Jobs job) {
 Widget _buildBody(Jobs job) {
   return Material(
     child: Center(
-      child: Text("${job.name}"),
+      child: Text("${job.description}"),
     ),
   );
 }

@@ -24,6 +24,7 @@ class NotifPage extends StatelessWidget {
         style: GoogleFonts.roboto(
             fontSize: 23, color: AppThemeData.lightThemeData.primaryColor),
       ),
+      centerTitle: true,
       elevation: 2.0,
       automaticallyImplyLeading: true,
     );

@@ -1,84 +1,98 @@
-class User {
-  String? _name;
-  int? _phone;
-  String? _email;
-  String? _image;
-  String? _id;
-  String? _surname;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  User(
-      {String? name,
-      int? phone,
-      String? email,
-      String? image,
-      String? id,
-      String? surname}) {
-    if (name != null) {
-      this._name = name;
-    }
-    if (phone != null) {
-      this._phone = phone;
-    }
-    if (email != null) {
-      this._email = email;
-    }
-    if (image != null) {
-      this._image = image;
-    }
-    if (id != null) {
-      this._id = id;
-    }
-    if (surname != null) {
-      this._surname = surname;
-    }
-  }
+class UserData {
+  User? user;
 
-  String? get name => _name;
-  set name(String? name) => _name = name;
-  int? get phone => _phone;
-  set phone(int? phone) => _phone = phone;
-  String? get email => _email;
-  set email(String? email) => _email = email;
-  String? get image => _image;
-  set image(String? image) => _image = image;
-  String? get id => _id;
-  set id(String? id) => _id = id;
-  String? get surname => _surname;
-  set surname(String? surname) => _surname = surname;
+  UserData({this.user});
 
-  User.fromJson(Map<String, dynamic> json) {
-    _name = json['name'];
-    _phone = json['phone'];
-    _email = json['email'];
-    _image = json['image'];
-    _id = json['id'];
-    _surname = json['surname'];
+  UserData.fromJson(Map<String, dynamic> json) {
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this._name;
-    data['phone'] = this._phone;
-    data['email'] = this._email;
-    data['image'] = this._image;
-    data['id'] = this._id;
-    data['surname'] = this._surname;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    return data;
+  }
+}
+
+class User {
+  String? surname;
+  String? name;
+  int? phone;
+  String? id;
+  Updated? updated;
+  String? image;
+  String? email;
+
+  User(
+      {this.surname,
+      this.name,
+      this.phone,
+      this.id,
+      this.updated,
+      this.image,
+      this.email});
+
+  User.fromJson(Map<String, dynamic> json) {
+    surname = json['surname'];
+    name = json['name'];
+    phone = json['phone'];
+    id = json['id'];
+    updated =
+        json['updated'] != null ? new Updated.fromJson(json['updated']) : null;
+    image = json['image'];
+    email = json['email'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['surname'] = this.surname;
+    data['name'] = this.name;
+    data['phone'] = this.phone;
+    data['id'] = this.id;
+    if (this.updated != null) {
+      data['updated'] = this.updated!.toJson();
+    }
+    data['image'] = this.image;
+    data['email'] = this.email;
+    return data;
+  }
+}
+
+class Updated {
+  int? iSeconds;
+  int? iNanoseconds;
+
+  Updated({this.iSeconds, this.iNanoseconds});
+
+  Updated.fromJson(Map<String, dynamic> json) {
+    iSeconds = json['_seconds'];
+    iNanoseconds = json['_nanoseconds'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_seconds'] = this.iSeconds;
+    data['_nanoseconds'] = this.iNanoseconds;
     return data;
   }
 }
 
 class GetUserRequest {
-  String? id;
+  String? email;
 
-  GetUserRequest({this.id});
+  GetUserRequest({this.email});
 
   GetUserRequest.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['email'] = this.email;
     return data;
   }
 }

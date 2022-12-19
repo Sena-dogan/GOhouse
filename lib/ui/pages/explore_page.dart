@@ -23,6 +23,7 @@ class ExplorePage extends StatelessWidget {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: false,
+      centerTitle: true,
     );
   }
 

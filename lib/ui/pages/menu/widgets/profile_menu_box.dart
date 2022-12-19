@@ -37,7 +37,7 @@ class ProfileMenuWidget extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: GoogleFonts.tienne(
+        style: GoogleFonts.roboto(
             fontSize: 17, fontWeight: FontWeight.bold, color: textColor),
       ),
       trailing: endIcon

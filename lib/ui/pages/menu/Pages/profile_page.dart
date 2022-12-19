@@ -1,19 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/colors.dart';
+import 'package:gohouse/models/user.dart';
+import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:gohouse/ui/pages/menu/widgets/profile_menu_box.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/constants/app_theme.dart';
 
-class ProfilePage extends StatelessWidget {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _controller = SidebarXController(selectedIndex: 1, extended: true);
+class ProfilePage extends StatefulWidget {
   ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  // get user from firebase
+  final user = FirebaseAuth.instance.currentUser;
+  late UserStore _userStore;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    _userStore = Provider.of<UserStore>(context);
+    _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+    super.didChangeDependencies();
+  }
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final _controller = SidebarXController(selectedIndex: 1, extended: true);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +73,7 @@ class ProfilePage extends StatelessWidget {
               height: 120,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(120),
-                child: Image.asset(Assets.pikachuuu),
+                child: Image.network(_userStore.userdata!.user!.image.toString(), fit: BoxFit.cover),
               ),
               decoration: BoxDecoration(
                 color: Colors.transparent,
@@ -68,14 +91,14 @@ class ProfilePage extends StatelessWidget {
               height: 20,
             ),
             Text(
-              "Bumblebee",
+              _userStore.userdata!.user!.name.toString(),
               style: GoogleFonts.chewy(fontSize: 30, color: Colors.black),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              "bumblebee@camaro.com",
+              _userStore.userdata!.user!.email.toString(),
               style: GoogleFonts.aBeeZee(fontSize: 20, color: Colors.black),
             ),
             SizedBox(

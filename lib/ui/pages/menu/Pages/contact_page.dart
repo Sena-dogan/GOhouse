@@ -51,6 +51,7 @@ class _ContactPageState extends State<ContactPage> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: true,
+      centerTitle: true,
     );
   }
 

@@ -5,13 +5,14 @@ class DataBoxWidget extends StatelessWidget {
   DataBoxWidget({
     required this.title,
     required this.icon,
-    super.key, required this.controller, this.minLine = 1, this.maxLine = 1});
+    super.key, required this.controller, this.minLine = 1, this.maxLine = 1, this.keyboardType = TextInputType.text,});
 
   final String title;
   final IconData icon;
   final TextEditingController controller;
   final int minLine;
   final int maxLine;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class DataBoxWidget extends StatelessWidget {
         cursorColor: MenuColors.midnightGreenEagleGreen,
         minLines: minLine,
         maxLines: maxLine,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           label: Text(title),
           prefixIcon: Icon(

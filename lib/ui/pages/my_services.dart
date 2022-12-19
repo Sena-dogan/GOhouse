@@ -54,10 +54,12 @@ class _MyServicesState extends State<MyServices> {
 
   PreferredSizeWidget _appBar() {
     return AppBar(
-      title: Text(
-        "Hizmetlerim",
-        style: GoogleFonts.roboto(
-            fontSize: 23, color: AppThemeData.lightThemeData.primaryColor),
+      title: Center(
+        child: Text(
+          "Hizmetlerim",
+          style: GoogleFonts.roboto(
+              fontSize: 23, color: AppThemeData.lightThemeData.primaryColor),
+        ),
       ),
       elevation: 2.0,
       automaticallyImplyLeading: false,
@@ -91,7 +93,7 @@ class _MyServicesState extends State<MyServices> {
                   backgroundImage: NetworkImage('${job.image}'),
                 ),
                 title: Text("${job.name}"),
-                subtitle: Text("${job.description}\n${job.price} tl"),
+                subtitle: Text("${job.description}\n${job.price} TL"),
                 //trailing: IconButton(icon: Icon(Icons.arrow_forward), onPressed: () {}),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => JobPage(job: job),

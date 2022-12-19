@@ -3,8 +3,10 @@ import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/strings.dart';
 import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/di/components/service_locator.dart';
+import 'package:gohouse/models/user_old.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
+import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/widgets/navigation_bar.dart';
 import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/splash/splash.dart';
@@ -25,6 +27,9 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   final ThemeStore _themeStore = ThemeStore(getIt<Repository>());
   final JobsStore _jobsStore = JobsStore(getIt<Repository>());
+  final UserStore _userStore = UserStore(getIt<Repository>());
+
+
 
   @override
   void didChangeDependencies() {
@@ -41,6 +46,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider<ThemeStore>(create: (_) => _themeStore),
         Provider<JobsStore>(create: (_) => _jobsStore),
+        Provider<UserStore>(
+          create: (context) => _userStore,
+        ),
       ],
       child: Observer(
         name: 'global-observer',

@@ -10,6 +10,7 @@ import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gohouse/stores/user/user_store.dart';
 import 'package:sembast/sembast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,4 +48,5 @@ Future<void> setupLocator() async {
   // stores:--------------------------------------------------------------------
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
   getIt.registerSingleton(JobsStore(getIt<Repository>()));
+  getIt.registerSingleton(UserStore(getIt<Repository>()));
 }

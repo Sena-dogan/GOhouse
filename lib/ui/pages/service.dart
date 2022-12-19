@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gohouse/data/network/apis/posts/post_api.dart';
 import 'package:gohouse/models/jobs.dart';
+import 'package:gohouse/models/user.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
+import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/job_page.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
@@ -29,11 +31,13 @@ class _ServiceState extends State<Service> {
   //     .map((snapshot) =>
   //         snapshot.docs.map((doc) => Job.fromJson(doc.data())).toList());
   late JobsStore _jobsStore;
+  late UserStore _userStore;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _jobsStore = Provider.of<JobsStore>(context);
+    _userStore = Provider.of<UserStore>(context);
     _jobsStore.getJobs();
   }
 
@@ -43,8 +47,8 @@ class _ServiceState extends State<Service> {
       appBar: _appBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _jobsStore.editData(
-              JobEditRequest(id: 'gFCiargAo9SbNcJSeCOU', price: '311'));
+          _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+          print("HI : ${_userStore.userdata!.user!.name.toString()}");
         },
         child: Icon(Icons.add),
       ),
@@ -61,6 +65,7 @@ class _ServiceState extends State<Service> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: false,
+      centerTitle: true,
     );
   }
 
@@ -108,10 +113,8 @@ class _ServiceState extends State<Service> {
       child: CircularProgressIndicator(),
     );
   }
-  
-Widget emptyWidget() {
-  return Center(
-    child: Text("Henüz bir hizmet eklenmemiş"));
-}
-  
+
+  Widget emptyWidget() {
+    return Center(child: Text("Henüz bir hizmet eklenmemiş"));
+  }
 }

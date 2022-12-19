@@ -45,6 +45,7 @@ class _ChangePassWidgetState extends State<ChangePassPage> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: true,
+      centerTitle: true,
     );
   }
 

@@ -35,6 +35,7 @@ class _ChatPageState extends State<ChatPage> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: true,
+      centerTitle: true,
     );
   }
 

@@ -5,6 +5,8 @@ import 'package:gohouse/data/sharedpref/shared_preference_helper.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/models/post/post.dart';
 import 'package:gohouse/models/post/post_list.dart';
+import 'package:gohouse/models/user.dart';
+import 'package:gohouse/models/user_old.dart';
 import 'package:sembast/sembast.dart';
 
 import 'local/constants/db_constants.dart';
@@ -75,6 +77,26 @@ class Repository {
       return jobsList;
     }).catchError((error) => throw error);
   }
+
+  // get user by id
+  Future<UserData> getUserById(GetUserRequest id) async {
+    // check if post is present in database, then update it
+    // else make a network call to get all posts, store them into database for
+    // later use
+    return await _postApi.getUserByID(id).then((user) {
+      return user;
+    }).catchError((error) => throw error);
+  }
+
+  // // update user by id
+  // Future updateUserById(UpdateUserRequest id) async {
+  //   // check if post is present in database, then update it
+  //   // else make a network call to get all posts, store them into database for
+  //   // later use
+  //   return await _postApi.updateUserByID(id).then((user) {
+  //     return user;
+  //   }).catchError((error) => throw error);
+  // }
 
   // Future<List<Post>> findPostById(int id) {
   //   //creating filter

@@ -1,97 +1,66 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:gohouse/data/network/apis/posts/post_api.dart';
-// import 'package:gohouse/data/repository.dart';
-// import 'package:gohouse/models/jobs.dart';
-// import 'package:mobx/mobx.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gohouse/data/repository.dart';
+import 'package:gohouse/models/jobs.dart';
+import 'package:gohouse/models/user.dart';
+import 'package:mobx/mobx.dart';
 
-// part 'user_store.g.dart';
+part 'user_store.g.dart';
 
-// class UserStore = _UserStore with _$UserStore;
+class UserStore = _UserStore with _$UserStore;
 
-// abstract class _UserStore with Store {
-//   static ObservableFuture<JobListResponse?> emptyJobsResponse =
-//       ObservableFuture.value(null);
-//   static ObservableFuture<JobListResponse?> emptyJobsWithUserResponse =
-//       ObservableFuture.value(null);
+abstract class _UserStore with Store {
+  static ObservableFuture<UserData?> emptyUserResponse =
+      ObservableFuture.value(null);
 
-//   @observable
-//   ObservableFuture<JobListResponse?> fetchJobsFuture =
-//       ObservableFuture<JobListResponse?>(emptyJobsResponse);
+  @observable
+  ObservableFuture<UserData?> fetchUserFuture =
+      ObservableFuture<UserData?>(emptyUserResponse);
 
-//   @observable
-//   ObservableFuture<JobListResponse?> fetchJobsWithUserFuture =
-//       ObservableFuture<JobListResponse?>(emptyJobsWithUserResponse);
+  final Repository _repository;
+  // final user = FirebaseAuth.instance.currentUser;
 
-//   final Repository _repository;
+  _UserStore(Repository repository) : this._repository = repository {
+    init();
+  }
 
-//   _UserStore(Repository repository) : this._repository = repository {
-//     init();
-//   }
+  void init() {
+    getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+  }
+  final firebaseUser = FirebaseAuth.instance.currentUser;
 
-//   void init() {}
+  // @observable user data not list
+  @observable
+  UserData? userdata;
 
-//   @observable
-//   ObservableList<User> user = ObservableList<User>();
+  @computed
+  bool get loading => fetchUserFuture.status == FutureStatus.pending;
 
-//   @computed
-//   bool get loading => fetchJobsFuture.status == FutureStatus.pending;
+  // get user data by email
+  @action
+  Future getUserData(String email) async {
+    try {
+      final future = _repository.getUserById(GetUserRequest(email: email));
+      fetchUserFuture = ObservableFuture(future);
+      fetchUserFuture.then((userResponse) {
+        userdata = userResponse!;
+        print(userResponse);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+}
 
-//   @computed
-//   bool get loadingMyService =>
-//       fetchJobsWithUserFuture.status == FutureStatus.pending;
-
-//   @action
-//   Future getJobs() async {
-//     try {
-//       jobs.clear();
-//       final future = _repository.getJobs();
-//       fetchJobsFuture = ObservableFuture(future);
-//       fetchJobsFuture.then((jobResponse) {
-//         jobResponse?.jobs?.forEach((element) {
-//           jobs.add(element);
-//           print(element.name);
-//         });
-//       });
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
-
-//   @action
-//   void addData(JobCreateRequest asd) {
-//     // jobs.add(Jobs(name: "test"));
-//     _repository.createJobs(asd).then((value) => getJobs());
-//   }
-
-//   // delete data by id
-//   @action
-//   void deleteData(JobDeleteRequest id) {
-//     _repository.deleteJobById(id).then((value) => getJobs());
-//   }
-
-//   // edit data by id
-//   @action
-//   void editData(JobEditRequest id) {
-//     _repository.editJobById(id).then((value) => getJobs());
-//   }
-
-//   // get job by user
-//   @action
-//   Future getJobsByUser() async {
-//     try {
-//       jobs.clear();
-//       final future =
-//           _repository.getJobByUserId(JobGetByUserRequest(user: user!.email));
-//       fetchJobsWithUserFuture = ObservableFuture(future);
-//       fetchJobsWithUserFuture.then((jobResponse) {
-//         jobResponse?.jobs?.forEach((element) {
-//           jobs.add(element);
-//           print(element.name);
-//         });
-//       });
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
-// }
+  // @action
+  // Future getJobs() async {
+  //   try {
+  //     jobs.clear();
+  //     final jobResponse = await _repository.getJobs();
+  //     jobResponse.jobs?.forEach((element) {
+  //       jobs.add(element);
+  //       print(element.name);
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
