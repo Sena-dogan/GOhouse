@@ -1,7 +1,11 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/colors.dart';
+import 'package:gohouse/models/user.dart';
 import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/widgets/data_box.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/constants/app_theme.dart';
@@ -22,13 +26,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   TextEditingController _surnameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
-
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _userStore = Provider.of<UserStore>(context);
   }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -72,7 +76,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   height: 120,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(120),
-                    child: Image.asset(Assets.pikachuuu),
+                    child: Image.network(
+                        _userStore.userdata!.user!.image ?? Assets.userImage),
                   ),
                 ),
                 Positioned(
@@ -117,35 +122,50 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             Form(
               child: Column(
                 children: [
-                  DataBoxWidget(
-                    controller: _nameController,
-                    title: "Ad",
-                    icon: Icons.person_outline,
-                  ),
+                  NameDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  DataBoxWidget(
-                    controller: _surnameController,
-                    title: "Soyad",
-                    icon: Icons.person_outline,
-                  ),
+                  SurnameDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  DataBoxWidget(
-                    controller: _emailController,
-                    title: "Email",
-                    icon: Icons.email_outlined,
-                  ),
+                  EmaiDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  DataBoxWidget(
-                    controller: _phoneController,
-                    title: "telefon",
-                    icon: Icons.phone_outlined,
-                  ),
+                  //TODO Ulke kodu
+                  PhoneDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 30),
                   SizedBox(
                     height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        debugPrint('Edit Profile Button Pressed');
+                        _userStore.editData(EditUserRequest(
+                          name: _nameController.text.isEmpty
+                              ? _userStore.userdata!.user!.name
+                              : _nameController.text,
+                          surname: _surnameController.text.isEmpty
+                              ? _userStore.userdata!.user!.surname
+                              : _surnameController.text,
+                          email: _emailController.text.isEmpty
+                              ? _userStore.userdata!.user!.email
+                              : _emailController.text,
+                          image: _userStore.userdata!.user!.image!.isEmpty
+                              ? Assets.userImage
+                              : _userStore.userdata!.user!.image,
+                          phone: _phoneController.text.isEmpty
+                              ? _userStore.userdata!.user!.phone
+                              : int.parse(_phoneController.text),
+                          id: _userStore.userdata!.user!.id,
+                        ));
+                        showDialog(context: context, builder: (context) {
+                          return AlertDialog(
+                            title: Text('Bilgileriniz Güncellendi'),
+                            actions: [
+                              TextButton(onPressed: () {
+                                Application.router.navigateTo(context, Routes.home, transition: TransitionType.fadeIn);
+                              }, child: Text('Tamam'))
+                            ],
+                          );
+                        },);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             AppThemeData.lightThemeData.primaryColor,
@@ -171,6 +191,38 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           ],
         ),
       ),
+    );
+  }
+
+  DataBoxWidget PhoneDataBox() {
+    return DataBoxWidget(
+      controller: _phoneController,
+      title: _userStore.userdata!.user!.phone.toString() ?? "Telefon",
+      icon: Icons.phone_outlined,
+    );
+  }
+
+  DataBoxWidget EmaiDataBox() {
+    return DataBoxWidget(
+      controller: _emailController,
+      title: _userStore.userdata!.user!.email ?? "Email",
+      icon: Icons.email_outlined,
+    );
+  }
+
+  DataBoxWidget SurnameDataBox() {
+    return DataBoxWidget(
+      controller: _surnameController,
+      title: _userStore.userdata!.user!.surname ?? "Soyad",
+      icon: Icons.person_outline,
+    );
+  }
+
+  DataBoxWidget NameDataBox() {
+    return DataBoxWidget(
+      controller: _nameController,
+      title: _userStore.userdata!.user!.name ?? "Ad",
+      icon: Icons.person_outline,
     );
   }
 }

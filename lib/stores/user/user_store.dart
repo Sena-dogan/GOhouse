@@ -49,7 +49,13 @@ abstract class _UserStore with Store {
       print(e);
     }
   }
+  // edit data by id
+  @action
+  void editData(EditUserRequest id) {
+    _repository.editUserById(id).then((value) => getUserData(id.email.toString()));
+  }
 }
+
 
   // @action
   // Future getJobs() async {

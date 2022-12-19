@@ -19,4 +19,7 @@ class Assets {
   static const String pikachu = "assets/images/pikachu.png";
   static const String pikachuuu = "assets/images/pikachuuu.png";
 
+  // user assets
+  static const String userImage = "https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg";
+
 }

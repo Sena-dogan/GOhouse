@@ -12,7 +12,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 
-Widget sideBar(SidebarXController controll, BuildContext context) {
+Widget sideBar(SidebarXController controll, BuildContext context, ) {
   const primaryColor = Color(0xFF685BFF);
   const canvasColor = Color(0xFF2E2E48);
   const scaffoldBackgroundColor = Color(0xFF464667);
@@ -71,7 +71,7 @@ Widget sideBar(SidebarXController controll, BuildContext context) {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Image.asset(
-              Assets.pikachuuu,
+              Assets.appLogo,
             ),
           ),
         ),

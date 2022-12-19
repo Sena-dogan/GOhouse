@@ -4,7 +4,6 @@ import 'package:gohouse/data/network/constants/endpoints.dart';
 import 'package:gohouse/data/network/dio_client.dart';
 import 'package:gohouse/data/network/rest_client.dart';
 import 'package:gohouse/models/jobs.dart';
-import 'package:gohouse/models/post/post_list.dart';
 import 'package:gohouse/models/user.dart';
 
 class PostApi {
@@ -99,6 +98,17 @@ class PostApi {
     try {
       final res = await _dioClient.post(Endpoints.getUserById, data: id.toJson());
       return UserData.fromJson(res);
+    } catch (e) {
+      print(e.toString());
+      throw e;
+    }
+  }
+
+  // edit user by id
+  Future<EditUserResponse> editUserByID(EditUserRequest id) async {
+    try {
+      final res = await _dioClient.put(Endpoints.updateUser, data: id.toJson());
+      return EditUserResponse.fromJson(res);
     } catch (e) {
       print(e.toString());
       throw e;

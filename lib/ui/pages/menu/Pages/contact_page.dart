@@ -1,7 +1,10 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/colors.dart';
 import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:gohouse/ui/pages/menu/widgets/data_box.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sidebarx/sidebarx.dart';
 
@@ -121,7 +124,19 @@ class _ContactPageState extends State<ContactPage> {
                       height: 50,
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(context: context, builder: (context) {
+                            return AlertDialog(
+                              title: Text("Mesajınız Gönderildi"),
+                              content: Text("Teşekkürler"),
+                              actions: [
+                                TextButton(onPressed: () {
+                                  Application.router.navigateTo(context, Routes.home, transition: TransitionType.fadeIn);
+                                }, child: Text("Tamam"))
+                              ],
+                            );
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               AppThemeData.lightThemeData.primaryColor,

@@ -96,3 +96,88 @@ class GetUserRequest {
     return data;
   }
 }
+
+class EditUserRequest {
+  int? _phone;
+  String? _surname;
+  String? _image;
+  String? _id;
+  String? _email;
+  String? _name;
+
+  EditUserRequest(
+      {int? phone,
+      String? surname,
+      String? image,
+      String? id,
+      String? email,
+      String? name}) {
+    if (phone != null) {
+      this._phone = phone;
+    }
+    if (surname != null) {
+      this._surname = surname;
+    }
+    if (image != null) {
+      this._image = image;
+    }
+    if (id != null) {
+      this._id = id;
+    }
+    if (email != null) {
+      this._email = email;
+    }
+    if (name != null) {
+      this._name = name;
+    }
+  }
+
+  int? get phone => _phone;
+  set phone(int? phone) => _phone = phone;
+  String? get surname => _surname;
+  set surname(String? surname) => _surname = surname;
+  String? get image => _image;
+  set image(String? image) => _image = image;
+  String? get id => _id;
+  set id(String? id) => _id = id;
+  String? get email => _email;
+  set email(String? email) => _email = email;
+  String? get name => _name;
+  set name(String? name) => _name = name;
+
+  EditUserRequest.fromJson(Map<String, dynamic> json) {
+    _phone = json['phone'];
+    _surname = json['surname'];
+    _image = json['image'];
+    _id = json['id'];
+    _email = json['email'];
+    _name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['phone'] = this._phone;
+    data['surname'] = this._surname;
+    data['image'] = this._image;
+    data['id'] = this._id;
+    data['email'] = this._email;
+    data['name'] = this._name;
+    return data;
+  }
+}
+
+class EditUserResponse {
+  bool? success;
+
+  EditUserResponse({this.success});
+
+  EditUserResponse.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    return data;
+  }
+}

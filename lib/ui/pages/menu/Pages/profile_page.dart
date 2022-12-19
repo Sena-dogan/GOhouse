@@ -73,7 +73,11 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 120,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(120),
-                child: Image.network(_userStore.userdata!.user!.image.toString(), fit: BoxFit.cover),
+                child: Image.network(
+                    _userStore.userdata!.user!.image!.isEmpty
+                        ? Assets.userImage
+                        : _userStore.userdata!.user!.image.toString(),
+                    fit: BoxFit.cover),
               ),
               decoration: BoxDecoration(
                 color: Colors.transparent,

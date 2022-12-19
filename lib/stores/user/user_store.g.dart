@@ -56,6 +56,20 @@ mixin _$UserStore on _UserStore, Store {
     return _$getUserDataAsyncAction.run(() => super.getUserData(email));
   }
 
+  late final _$_UserStoreActionController =
+      ActionController(name: '_UserStore', context: context);
+
+  @override
+  void editData(EditUserRequest id) {
+    final _$actionInfo =
+        _$_UserStoreActionController.startAction(name: '_UserStore.editData');
+    try {
+      return super.editData(id);
+    } finally {
+      _$_UserStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
