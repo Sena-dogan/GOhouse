@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/models/user.dart';
@@ -43,6 +44,7 @@ abstract class _UserStore with Store {
       fetchUserFuture = ObservableFuture(future);
       fetchUserFuture.then((userResponse) {
         userdata = userResponse!;
+        Assets.userImageLink = userdata!.user!.image!;
         print(userResponse);
       });
     } catch (e) {

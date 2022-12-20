@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     // if (_userStore.userdata!.user!.image != null)
     //   Assets.userImage = _userStore.userdata!.user!.image.toString();
     // debugPrint(Assets.userImage);
+    //Assets.userImageLink = _userStore.userdata!.user!.image!;
   }
 
   @override
@@ -56,8 +57,8 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
-        future: _userStore.getUserData(
-            FirebaseAuth.instance.currentUser!.email.toString()));
+        future: _userStore
+            .getUserData(FirebaseAuth.instance.currentUser!.email.toString()));
   }
 
   PreferredSizeWidget _appBar() {

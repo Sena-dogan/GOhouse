@@ -37,7 +37,7 @@ Widget sideBar(SidebarXController controll, BuildContext context, ) {
         border: Border.all(color: Colors.transparent),
       ),
       selectedItemDecoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(80),
         border: Border.all(
           color: actionColor.withOpacity(0.37),
         ),
@@ -70,11 +70,15 @@ Widget sideBar(SidebarXController controll, BuildContext context, ) {
           height: 100,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.network(
-              Assets.userImageLink,
-              errorBuilder: (context, error, stackTrace) {
-                return Image.asset(Assets.userImageAsset);
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                Assets.userImageLink,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(Assets.userImageAsset);
+                },
+              ),
             ),
           ),
         ),
