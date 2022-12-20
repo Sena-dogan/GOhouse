@@ -70,8 +70,11 @@ Widget sideBar(SidebarXController controll, BuildContext context, ) {
           height: 100,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset(
-              Assets.appLogo,
+            child: Image.network(
+              Assets.userImageLink,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(Assets.userImageAsset);
+              },
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/colors.dart';
@@ -50,59 +52,83 @@ class _ChangePassWidgetState extends State<ChangePassPage> {
   }
 
   Widget _body(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width) / 10,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Form(
-                child: Column(
-                  children: [
-                    DataBoxWidget(
-                        title: "Eski Şifre",
-                        icon: Icons.password_outlined,
-                        controller: _oldPassController),
-                    SizedBox(height: MediaQuery.of(context).size.height / 40),
-                    DataBoxWidget(
-                        title: "Yeni Şifre",
-                        icon: Icons.password_outlined,
-                        controller: _newPassController),
-                    SizedBox(height: MediaQuery.of(context).size.height / 40),
-                    DataBoxWidget(
-                        title: "Yeni Şire Tekrar",
-                        icon: Icons.password_outlined,
-                        controller: _newPassAgainController),
-                    SizedBox(height: MediaQuery.of(context).size.height / 20),
-                    SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              AppThemeData.lightThemeData.primaryColor,
-                          side: BorderSide.none,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          elevation: 12,
-                          shadowColor: AppThemeData.lightThemeData.primaryColor
-                              .withOpacity(0.3),
-                        ),
-                        child: Text(
-                          "Kaydet",
-                          style: GoogleFonts.tienne(
-                            fontSize: 14,
-                            color: MenuColors.white,
+    return SingleChildScrollView(
+      child: Container(
+        child: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width) / 10,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Form(
+                  child: Column(
+                    children: [
+                      DataBoxWidget(
+                          title: "Eski Şifre",
+                          icon: Icons.password_outlined,
+                          controller: _oldPassController),
+                      SizedBox(height: MediaQuery.of(context).size.height / 40),
+                      DataBoxWidget(
+                          title: "Yeni Şifre",
+                          icon: Icons.password_outlined,
+                          controller: _newPassController),
+                      SizedBox(height: MediaQuery.of(context).size.height / 40),
+                      DataBoxWidget(
+                          title: "Yeni Şire Tekrar",
+                          icon: Icons.password_outlined,
+                          controller: _newPassAgainController),
+                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_newPassController.text == _newPassAgainController.text)
+                              FirebaseAuth.instance.currentUser!
+                                .updatePassword(_newPassController.text);
+                            else
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Hata"),
+                                    content: Text("Şifreler uyuşmuyor"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Tamam"),
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppThemeData.lightThemeData.primaryColor,
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            elevation: 12,
+                            shadowColor: AppThemeData.lightThemeData.primaryColor
+                                .withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "Kaydet",
+                            style: GoogleFonts.tienne(
+                              fontSize: 14,
+                              color: MenuColors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

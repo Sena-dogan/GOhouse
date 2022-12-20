@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final uid = user!.uid;
       // Create a new document for the user with the uid
       await DatabaseService(uid: uid)
-          .updateUserData(email.split("@")[0], '', email, 0, '');
+          .updateUserData(email.split("@")[0], '', email, 0, 'https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg');
       Application.router.navigateTo(context, Routes.mainPage,
           transition: TransitionType.fadeIn);
     } on FirebaseAuthException catch (e) {

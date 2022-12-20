@@ -29,16 +29,35 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     _userStore = Provider.of<UserStore>(context);
     _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+    // if (_userStore.userdata!.user!.image != null)
+    //   Assets.userImage = _userStore.userdata!.user!.image.toString();
+    // debugPrint(Assets.userImage);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
-      key: _scaffoldKey,
-      drawer: sideBar(_controller, context),
-      body: _homePageBody(),
-    );
+    return FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+              appBar: _appBar(),
+              key: _scaffoldKey,
+              drawer: sideBar(_controller, context),
+              body: _homePageBody(),
+            );
+          } else {
+            return Scaffold(
+              appBar: _appBar(),
+              key: _scaffoldKey,
+              drawer: sideBar(_controller, context),
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
+        future: _userStore.getUserData(
+            FirebaseAuth.instance.currentUser!.email.toString()));
   }
 
   PreferredSizeWidget _appBar() {
