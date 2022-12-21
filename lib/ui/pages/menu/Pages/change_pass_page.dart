@@ -86,10 +86,52 @@ class _ChangePassWidgetState extends State<ChangePassPage> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
+                            if (_newPassController.text.isEmpty ||
+                                _newPassAgainController.text.isEmpty ||
+                                _oldPassController.text.isEmpty) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Hata"),
+                                    content: Text("Lütfen boş alan bırakmayın"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Tamam"),
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                              return;
+                            }
                             if (_newPassController.text ==
                                 _newPassAgainController.text) {
-                              FirebaseAuth.instance.currentUser!
-                                  .updatePassword(_newPassController.text);
+                              try {
+                                FirebaseAuth.instance.currentUser!
+                                    .updatePassword(_newPassController.text);
+                              } catch (e) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text("Hata"),
+                                      content: Text(e.toString()),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Tamam"),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                               showDialog(
                                   context: context,
                                   builder: (context) {
@@ -102,7 +144,9 @@ class _ChangePassWidgetState extends State<ChangePassPage> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Application.router.navigateTo(
-                                                context, Routes.home, transition: TransitionType.fadeIn);
+                                                context, Routes.home,
+                                                transition:
+                                                    TransitionType.fadeIn);
                                           },
                                           child: Text("Tamam"),
                                         )
