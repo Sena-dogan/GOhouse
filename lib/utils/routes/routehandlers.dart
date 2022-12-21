@@ -1,3 +1,4 @@
+import 'package:gohouse/ui/pages/view_services.dart';
 import 'package:gohouse/widgets/navigation_bar.dart';
 import 'package:gohouse/ui/login/forgot_pass.dart';
 import 'package:gohouse/ui/login/login.dart';
@@ -61,4 +62,8 @@ var notificationHandler = Handler(handlerFunc: ((context, parameters) {
 
 var serveHandler = Handler(handlerFunc: ((context, parameters) {
   return ServePage();
+}));
+
+var serviceHandler = Handler(handlerFunc: ((context, parameters) {
+  return Service();
 }));

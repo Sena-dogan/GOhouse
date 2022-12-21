@@ -3,6 +3,7 @@ import 'package:gohouse/ui/pages/explore_page.dart';
 import 'package:gohouse/ui/home/home_page.dart';
 import 'package:gohouse/ui/pages/my_services.dart';
 import 'package:gohouse/ui/pages/service.dart';
+import 'package:gohouse/ui/pages/view_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List pages = [
     HomePage(),
     ExplorePage(),
-    Service(),
+    SelectService(),
     MyServices(),
   ];
 
@@ -55,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
             activeColor: Colors.black,
             tabBackgroundColor: Color.fromARGB(90, 214, 206, 206),
             onTabChange: (value) {
-              //TODO: Mobx
               setState(() {
                 i = value;
               });

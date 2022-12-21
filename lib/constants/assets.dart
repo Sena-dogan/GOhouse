@@ -23,4 +23,6 @@ class Assets {
   static String userImageLink = "https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg";
   static String userImageAsset = "assets/images/user_profile.jpeg";
 
+  // job assets
+  static const String noImage = 'https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg';
 }

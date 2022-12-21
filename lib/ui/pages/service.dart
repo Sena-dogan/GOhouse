@@ -1,57 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:gohouse/data/network/apis/posts/post_api.dart';
-import 'package:gohouse/models/jobs.dart';
-import 'package:gohouse/models/user.dart';
-import 'package:gohouse/stores/jobs/jobs_store.dart';
-import 'package:gohouse/stores/user/user_store.dart';
-import 'package:gohouse/ui/pages/job_page.dart';
+import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:gohouse/constants/app_theme.dart';
-import 'package:provider/provider.dart';
-
-class Service extends StatefulWidget {
-  const Service({super.key});
-
-  @override
-  State<Service> createState() => _ServiceState();
-}
-
-class _ServiceState extends State<Service> {
-  final user = FirebaseAuth.instance.currentUser;
-
-  // Stream<List<Job>> getJobs() => FirebaseFirestore.instance
-  //     .collection('jobs')
-  //     .snapshots()
-  //     .map((snapshot) =>
-  //         snapshot.docs.map((doc) => Job.fromJson(doc.data())).toList());
-  late JobsStore _jobsStore;
-  late UserStore _userStore;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _jobsStore = Provider.of<JobsStore>(context);
-    _userStore = Provider.of<UserStore>(context);
-    _jobsStore.getJobs();
-  }
+class SelectService extends StatelessWidget {
+  const SelectService({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
-          print("HI : ${_userStore.userdata!.user!.name.toString()}");
-        },
-        child: Icon(Icons.add),
-      ),
       body: _body(context),
     );
   }
@@ -61,7 +21,9 @@ class _ServiceState extends State<Service> {
       title: Text(
         "Hizmet Ekle",
         style: GoogleFonts.roboto(
-            fontSize: 23, color: AppThemeData.lightThemeData.primaryColor),
+          fontSize: 23,
+          color: AppThemeData.lightThemeData.primaryColor,
+        ),
       ),
       elevation: 2.0,
       automaticallyImplyLeading: false,
@@ -70,51 +32,49 @@ class _ServiceState extends State<Service> {
   }
 
   Widget _body(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Observer(builder: (context) {
-      return _jobsStore.loading
-          ? LoadingWidget()
-          : _jobsStore.jobs.isEmpty
-              ? emptyWidget()
-              : BuildListWidget();
-    });
-  }
-
-  Container BuildListWidget() {
-    return Container(
-      child: ListView.builder(
-        itemCount: _jobsStore.jobs.length,
-        itemBuilder: ((context, index) {
-          Jobs job = _jobsStore.jobs[index];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage('${job.image}'),
-                ),
-                title: Text("${job.name}"),
-                subtitle: Text("${job.description}\n${job.price} tl"),
-                //trailing: IconButton(icon: Icon(Icons.arrow_forward), onPressed: () {}),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => JobPage(job: job),
-                )),
-              ),
-            ),
-          );
-        }),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _serviceButton(context, 'Hizmet Al', Routes.servePage),
+          SizedBox(height: 70),
+          _serviceButton(context, 'Hizmet Ver', Routes.servicePage),
+        ],
       ),
     );
   }
 
-  Center LoadingWidget() {
-    return Center(
-      child: CircularProgressIndicator(),
+  ElevatedButton _serviceButton(
+      BuildContext context, String text, String path) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          Colors.grey[200],
+        ),
+        elevation: MaterialStateProperty.all(1),
+        padding: MaterialStateProperty.all(
+          EdgeInsets.symmetric(
+            horizontal: 70,
+            vertical: 30,
+          ),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      ),
+      onPressed: () {
+        Application.router.navigateTo(context, path, transition: TransitionType.fadeIn);
+      },
+      child: Text(
+        text,
+        style: GoogleFonts.roboto(
+          fontSize: 15,
+          color: AppThemeData.lightThemeData.primaryColor,
+        ),
+      ),
     );
-  }
-
-  Widget emptyWidget() {
-    return Center(child: Text("Henüz bir hizmet eklenmemiş"));
   }
 }

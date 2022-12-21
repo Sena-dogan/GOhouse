@@ -13,7 +13,6 @@ class JobPage extends StatelessWidget {
       appBar: _buildAppBar(job),
       body: _buildBody(context, job),
     );
-
   }
 }
 
@@ -44,9 +43,16 @@ Widget _buildBody(BuildContext context, Jobs job) {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.network(
-                "https://i.ytimg.com/vi/lcwmDAYt22k/maxresdefault.jpg",
+                job.image.toString(),
                 height: 220,
                 width: 380,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.network(
+                    'https://i.ytimg.com/vi/lcwmDAYt22k/maxresdefault.jpg',
+                    height: 220,
+                    width: 380,
+                  );
+                },
               ),
             ),
           ),
@@ -86,7 +92,11 @@ Widget _buildBody(BuildContext context, Jobs job) {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.006),
-          Divider(color: Colors.black45, thickness: 1.0, endIndent: 250.0,),
+          Divider(
+            color: Colors.black45,
+            thickness: 1.0,
+            endIndent: 250.0,
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           Align(
             alignment: Alignment.centerLeft,
@@ -124,7 +134,7 @@ Widget _buildBody(BuildContext context, Jobs job) {
             child: Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 18.0),
               child: Text(
-                "${job.user}",
+                "Ilan sahibi: ${job.user}",
                 style: GoogleFonts.roboto(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

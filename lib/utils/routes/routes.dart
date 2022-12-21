@@ -18,6 +18,7 @@ class Routes {
   static const String editProfilePage = '/account';
   static const String notifProfilePage = '/notification';
   static const String servePage = '/serve';
+  static const String servicePage = '/service';
   
 
   static void configureRoutes(FluroRouter router) {
@@ -33,6 +34,7 @@ class Routes {
     router.define(editProfilePage, handler: editProfileHandler);
     router.define(notifProfilePage, handler: notificationHandler);
     router.define(servePage, handler: serveHandler);
+    router.define(servicePage, handler: serviceHandler);
     router.notFoundHandler = Handler(handlerFunc: ((context, parameters) {
       debugPrint("Route not found");
       return;

@@ -3,7 +3,6 @@ import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/strings.dart';
 import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/di/components/service_locator.dart';
-import 'package:gohouse/models/user_old.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:gohouse/stores/user/user_store.dart';

@@ -39,6 +39,31 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _userStore = Provider.of<UserStore>(context);
   }
 
+  void uploadImage() async {
+    debugPrint('Edit Profile Image Button Pressed');
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    var imgFile = File(image!.path);
+    final metadata = SettableMetadata(
+      contentType: 'image/jpeg',
+      // contentType: 'image/png',
+      customMetadata: {'picked-file-path': imgFile.path},
+    );
+    UploadTask uploadTask;
+    Reference ref =
+        FirebaseStorage.instance.ref().child('images/${image.name}');
+    try {
+      uploadTask = ref.putData(await imgFile.readAsBytes(), metadata);
+      imgUrl = await (await uploadTask).ref.getDownloadURL();
+      setState(() {
+        if (imgUrl != null) Assets.userImageLink = imgUrl!;
+        _userStore.getUserData(_userStore.userdata!.user!.email.toString());
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -76,34 +101,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () async {
-                debugPrint('Edit Profile Image Button Pressed');
-                final ImagePicker picker = ImagePicker();
-                final XFile? image =
-                    await picker.pickImage(source: ImageSource.gallery);
-                var imgFile = File(image!.path);
-                final metadata = SettableMetadata(
-                  contentType: 'image/jpeg',
-                  // contentType: 'image/png',
-                  customMetadata: {'picked-file-path': imgFile.path},
-                );
-                UploadTask uploadTask;
-                Reference ref = FirebaseStorage.instance
-                    .ref()
-                    .child('images/${image.name}');
-                try {
-                  uploadTask =
-                      ref.putData(await imgFile.readAsBytes(), metadata);
-                  imgUrl = await (await uploadTask).ref.getDownloadURL();
-                  setState(() {
-                    if (imgUrl != null)
-                      Assets.userImageLink = imgUrl!;
-                    _userStore.getUserData(_userStore.userdata!.user!.email.toString());
-                  });
-                } catch (e) {
-                  print(e.toString());
-                }
-              },
+              onTap: uploadImage,
               child: Stack(
                 children: [
                   SizedBox(
