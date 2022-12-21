@@ -26,7 +26,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   late UserStore _userStore;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-  late String imgUrl;
+  String? imgUrl;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _surnameController = TextEditingController();
@@ -96,7 +96,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ref.putData(await imgFile.readAsBytes(), metadata);
                   imgUrl = await (await uploadTask).ref.getDownloadURL();
                   setState(() {
-                    Assets.userImageLink = imgUrl;
+                    if (imgUrl != null)
+                      Assets.userImageLink = imgUrl!;
                     _userStore.getUserData(_userStore.userdata!.user!.email.toString());
                   });
                 } catch (e) {
@@ -186,7 +187,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           email: _emailController.text.isEmpty
                               ? _userStore.userdata!.user!.email
                               : _emailController.text,
-                          image: imgUrl.toString(),
+                          image: imgUrl == null
+                              ? _userStore.userdata!.user!.image
+                              : imgUrl.toString(),
                           phone: _phoneController.text.isEmpty
                               ? _userStore.userdata!.user!.phone
                               : int.parse(_phoneController.text),

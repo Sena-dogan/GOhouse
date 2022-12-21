@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 Widget sideBar(SidebarXController controll, BuildContext context, ) {
-  const primaryColor = Color(0xFF685BFF);
-  const canvasColor = Color(0xFF2E2E48);
-  const scaffoldBackgroundColor = Color(0xFF464667);
-  const accentCanvasColor = Color(0xFF3E3E61);
+  // const primaryColor = Color(0xFF685BFF);
+  // const canvasColor = Color(0xFF2E2E48);
+  // const scaffoldBackgroundColor = Color(0xFF464667);
+  // const accentCanvasColor = Color(0xFF3E3E61);
   const white = Colors.white;
   Color actionColor = AppThemeData.lightColorScheme.primary;
 
@@ -27,7 +27,7 @@ Widget sideBar(SidebarXController controll, BuildContext context, ) {
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(150),
       ),
       textStyle: const TextStyle(color: Colors.black),
       selectedTextStyle: const TextStyle(color: Colors.black),

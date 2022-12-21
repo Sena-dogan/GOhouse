@@ -25,8 +25,10 @@ abstract class _UserStore with Store {
   }
 
   void init() {
-    getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+    if (FirebaseAuth.instance.currentUser != null)
+      getUserData(FirebaseAuth.instance.currentUser!.email.toString());
   }
+
   final firebaseUser = FirebaseAuth.instance.currentUser;
 
   // @observable user data not list
@@ -51,10 +53,13 @@ abstract class _UserStore with Store {
       print(e);
     }
   }
+
   // edit data by id
   @action
   void editData(EditUserRequest id) {
-    _repository.editUserById(id).then((value) => getUserData(id.email.toString()));
+    _repository
+        .editUserById(id)
+        .then((value) => getUserData(id.email.toString()));
   }
 }
 

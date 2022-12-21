@@ -28,7 +28,8 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _userStore = Provider.of<UserStore>(context);
-    _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+    if (FirebaseAuth.instance.currentUser != null)
+      _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
     // if (_userStore.userdata!.user!.image != null)
     //   Assets.userImage = _userStore.userdata!.user!.image.toString();
     // debugPrint(Assets.userImage);

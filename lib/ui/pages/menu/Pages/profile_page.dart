@@ -30,7 +30,9 @@ class _ProfilePageState extends State<ProfilePage> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     _userStore = Provider.of<UserStore>(context);
-    _userStore.getUserData(FirebaseAuth.instance.currentUser!.email.toString());
+    if (FirebaseAuth.instance.currentUser != null)
+      _userStore
+          .getUserData(FirebaseAuth.instance.currentUser!.email.toString());
     super.didChangeDependencies();
   }
 
@@ -159,7 +161,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ProfileMenuWidget(
               title: "Çıkış Yap",
               icon: Icons.logout_outlined,
-              onPress: () {},
+              onPress: () {
+                FirebaseAuth.instance.signOut();
+                Application.router.navigateTo(context, Routes.mainPage,
+                    transition: TransitionType.fadeIn);
+                debugPrint('Signed out');
+              },
             ),
           ],
         ),
