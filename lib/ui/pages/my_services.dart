@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/ui/pages/job_page.dart';
@@ -18,12 +19,6 @@ class MyServices extends StatefulWidget {
 
 class _MyServicesState extends State<MyServices> {
   final user = FirebaseAuth.instance.currentUser;
-
-  // Stream<List<Job>> getJobs() => FirebaseFirestore.instance
-  //     .collection('jobs')
-  //     .snapshots()
-  //     .map((snapshot) =>
-  //         snapshot.docs.map((doc) => Job.fromJson(doc.data())).toList());
   late JobsStore _jobsStore;
 
   @override
@@ -62,28 +57,44 @@ class _MyServicesState extends State<MyServices> {
           ? loadingWidget()
           : _jobsStore.jobs.isEmpty
               ? emptyWidget()
-              : buildListWidget();
+              : _buildListWidget();
     });
   }
 
-  Container buildListWidget() {
+   Container _buildListWidget() {
     return Container(
+      color: Colors.grey[100],
       child: ListView.builder(
         itemCount: _jobsStore.jobs.length,
         itemBuilder: ((context, index) {
-          Jobs job = _jobsStore.jobs[index];
-
+          Jobs job = _jobsStore.jobs.reversed.toList()[index];
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(3.0),
             child: Card(
               child: ListTile(
-                leading: CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage('${job.image}'),
+                minVerticalPadding: 12,
+                leading: Image.network(
+                  '${job.image}',
+                  height: 300,
+                  width: 120,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.network(
+                      Assets.noImage,
+                    );
+                  },
                 ),
                 title: Text("${job.name}"),
-                subtitle: Text("${job.description}\n${job.price} TL"),
-                //trailing: IconButton(icon: Icon(Icons.arrow_forward), onPressed: () {}),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${job.description}..", maxLines: 4 ,),
+                    Text(
+                      "${job.price} ₺",
+                      style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => JobPage(job: job),
                 )),
