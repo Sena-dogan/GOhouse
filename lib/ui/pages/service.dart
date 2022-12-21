@@ -19,7 +19,7 @@ class SelectService extends StatelessWidget {
   PreferredSizeWidget _appBar() {
     return AppBar(
       title: Text(
-        "Hizmet Ekle",
+        "Hizmet Seç",
         style: GoogleFonts.roboto(
           fontSize: 23,
           color: AppThemeData.lightThemeData.primaryColor,

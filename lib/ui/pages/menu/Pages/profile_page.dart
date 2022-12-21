@@ -57,10 +57,12 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       elevation: 2.0,
       automaticallyImplyLeading: true,
+      centerTitle: true,
     );
   }
 
   Widget _body(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width) / 7,
@@ -94,14 +96,14 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Text(
               _userStore.userdata!.user!.name.toString(),
-              style: GoogleFonts.chewy(fontSize: 30, color: Colors.black),
+              style: GoogleFonts.chewy(fontSize: size.width * 0.1, color: Colors.black),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
               _userStore.userdata!.user!.email.toString(),
-              style: GoogleFonts.aBeeZee(fontSize: 20, color: Colors.black),
+              style: GoogleFonts.aBeeZee(fontSize: size.width * 0.05, color: Colors.black),
             ),
             SizedBox(
               height: 20,
