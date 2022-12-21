@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/ui/pages/job_page.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:gohouse/constants/app_theme.dart';
@@ -61,7 +64,7 @@ class _MyServicesState extends State<MyServices> {
     });
   }
 
-   Container _buildListWidget() {
+  Container _buildListWidget() {
     return Container(
       color: Colors.grey[100],
       child: ListView.builder(
@@ -88,7 +91,10 @@ class _MyServicesState extends State<MyServices> {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${job.description}..", maxLines: 4 ,),
+                    Text(
+                      "${job.description}..",
+                      maxLines: 4,
+                    ),
                     Text(
                       "${job.price} ₺",
                       style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
@@ -108,7 +114,19 @@ class _MyServicesState extends State<MyServices> {
 
   Center emptyWidget() {
     return Center(
-      child: Text("empty"),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network('https://i.pinimg.com/originals/c6/c6/2e/c6c62e7db88003635b5c0afdea2d66ed.jpg'),
+          Text('Verilmiş ilan bulunamadı.', style: GoogleFonts.roboto(),),
+          SizedBox(height: 7,),
+          GestureDetector(
+              onTap: () =>
+                  Application.router.navigateTo(context, Routes.servePage, transition: TransitionType.fadeIn),
+              child: Text(
+                  "İlan vermek için tıklayınız", style: GoogleFonts.roboto(fontWeight: FontWeight.bold),)),
+        ],
+      ),
     );
   }
 

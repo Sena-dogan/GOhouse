@@ -7,6 +7,8 @@ import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/widgets/data_box.dart';
+import 'package:gohouse/utils/routemanager/application.dart';
+import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -198,7 +200,8 @@ class _ServePageState extends State<ServePage> {
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
+                                    Application.router
+                                        .navigateTo(context, Routes.servicePage);
                                   },
                                   child: Text("Tamam"))
                             ],
