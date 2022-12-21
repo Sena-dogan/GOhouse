@@ -34,7 +34,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   TextEditingController _phoneController = TextEditingController();
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _userStore = Provider.of<UserStore>(context);
   }
@@ -51,7 +50,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     );
     UploadTask uploadTask;
     Reference ref =
-        FirebaseStorage.instance.ref().child('images/${image.name}');
+        _firebaseStorage.ref().child('images/${image.name}');
     try {
       uploadTask = ref.putData(await imgFile.readAsBytes(), metadata);
       imgUrl = await (await uploadTask).ref.getDownloadURL();
@@ -160,14 +159,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             Form(
               child: Column(
                 children: [
-                  NameDataBox(),
+                  _nameDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  SurnameDataBox(),
+                  _surnameDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  EmaiDataBox(),
+                  _emaiDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 70),
-                  //TODO Ulke kodu
-                  PhoneDataBox(),
+                  _phoneDataBox(),
                   SizedBox(height: MediaQuery.of(context).size.height / 30),
                   SizedBox(
                     height: 50,
@@ -239,7 +237,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     );
   }
 
-  DataBoxWidget PhoneDataBox() {
+  DataBoxWidget _phoneDataBox() {
     return DataBoxWidget(
       controller: _phoneController,
       title: _userStore.userdata!.user!.phone!.isNaN
@@ -249,7 +247,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     );
   }
 
-  DataBoxWidget EmaiDataBox() {
+  DataBoxWidget _emaiDataBox() {
     return DataBoxWidget(
       controller: _emailController,
       title: _userStore.userdata!.user!.email!.isEmpty
@@ -259,7 +257,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     );
   }
 
-  DataBoxWidget SurnameDataBox() {
+  DataBoxWidget _surnameDataBox() {
     return DataBoxWidget(
       controller: _surnameController,
       title: _userStore.userdata!.user!.surname!.isEmpty
@@ -269,7 +267,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     );
   }
 
-  DataBoxWidget NameDataBox() {
+  DataBoxWidget _nameDataBox() {
     return DataBoxWidget(
       controller: _nameController,
       title: _userStore.userdata!.user!.name ?? "Ad",

@@ -1,11 +1,8 @@
-import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:gohouse/ui/pages/explore_page.dart';
 import 'package:gohouse/ui/home/home_page.dart';
 import 'package:gohouse/ui/pages/my_services.dart';
 import 'package:gohouse/ui/pages/service.dart';
-import 'package:gohouse/ui/pages/view_services.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,8 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //stores:---------------------------------------------------------------------
-  late ThemeStore _themeStore;
+  // //stores:---------------------------------------------------------------------
+  // late ThemeStore _themeStore;
   int i = 0;
   List pages = [
     HomePage(),
@@ -30,13 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    
-    _themeStore = Provider.of<ThemeStore>(context);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[i],
@@ -44,43 +34,43 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _bottomNavBar(){
+  Widget _bottomNavBar() {
     return Container(
-        color: Colors.white,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-          child: GNav(
-            gap: 10,
-            backgroundColor: Colors.white,
-            color: Colors.black,
-            activeColor: Colors.black,
-            tabBackgroundColor: Color.fromARGB(90, 214, 206, 206),
-            onTabChange: (value) {
-              setState(() {
-                i = value;
-              });
-            },
-            padding: EdgeInsets.all(8.0),
-            tabs: [
-              GButton(
-                icon: Icons.home_outlined,
-                text: "Ana Sayfa",
-              ),
-              GButton(
-                icon: Icons.location_on_outlined,
-                text: "Keşfet",
-              ),
-              GButton(
-                icon: Icons.add,
-                text: "Hizmet Ver/Al",
-              ),
-              GButton(
-                icon: Icons.shopping_basket_outlined,
-                text: "Hizmetlerim",
-              ),
-            ],
-          ),
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
+        child: GNav(
+          gap: 10,
+          backgroundColor: Colors.white,
+          color: Colors.black,
+          activeColor: Colors.black,
+          tabBackgroundColor: Color.fromARGB(90, 214, 206, 206),
+          onTabChange: (value) {
+            setState(() {
+              i = value;
+            });
+          },
+          padding: EdgeInsets.all(8.0),
+          tabs: [
+            GButton(
+              icon: Icons.home_outlined,
+              text: "Ana Sayfa",
+            ),
+            GButton(
+              icon: Icons.location_on_outlined,
+              text: "Keşfet",
+            ),
+            GButton(
+              icon: Icons.add,
+              text: "Hizmet Ver/Al",
+            ),
+            GButton(
+              icon: Icons.shopping_basket_outlined,
+              text: "Hizmetlerim",
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

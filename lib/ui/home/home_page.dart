@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
-import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -115,9 +114,9 @@ class _HomePageState extends State<HomePage> {
         .toList();
 
     List<Widget> drawerList = [
-      _hizmetAl(),
-      _haliYikama(),
-      _koltukYikama(),
+      HizmetAl(),
+      HaliYikama(),
+      KoltukYikama(),
     ];
 
     List<Widget> imageSliders =
@@ -129,12 +128,12 @@ class _HomePageState extends State<HomePage> {
             height: 30.0,
             color: AppThemeData.lightColorScheme.primary,
           ),
-          _mainSlider(bannerSliders: bannerSliders),
+          MainSlider(bannerSliders: bannerSliders),
           Container(
             color: AppThemeData.lightColorScheme.primary,
             height: 50,
           ),
-          _imageSlider(imageSliders: imageSliders),
+          ImageSlider(imageSliders: imageSliders),
         ],
       ),
     );
@@ -169,8 +168,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _imageSlider extends StatelessWidget {
-  const _imageSlider({
+class ImageSlider extends StatelessWidget {
+  const ImageSlider({
     Key? key,
     required this.imageSliders,
   }) : super(key: key);
@@ -191,8 +190,8 @@ class _imageSlider extends StatelessWidget {
   }
 }
 
-class _mainSlider extends StatelessWidget {
-  const _mainSlider({
+class MainSlider extends StatelessWidget {
+  const MainSlider({
     Key? key,
     required this.bannerSliders,
   }) : super(key: key);
@@ -216,8 +215,8 @@ class _mainSlider extends StatelessWidget {
   }
 }
 
-class _koltukYikama extends StatelessWidget {
-  const _koltukYikama({
+class KoltukYikama extends StatelessWidget {
+  const KoltukYikama({
     Key? key,
   }) : super(key: key);
 
@@ -268,8 +267,8 @@ class _koltukYikama extends StatelessWidget {
   }
 }
 
-class _haliYikama extends StatelessWidget {
-  const _haliYikama({
+class HaliYikama extends StatelessWidget {
+  const HaliYikama({
     Key? key,
   }) : super(key: key);
 
@@ -322,8 +321,8 @@ class _haliYikama extends StatelessWidget {
   }
 }
 
-class _hizmetAl extends StatelessWidget {
-  const _hizmetAl({
+class HizmetAl extends StatelessWidget {
+  const HizmetAl({
     Key? key,
   }) : super(key: key);
 

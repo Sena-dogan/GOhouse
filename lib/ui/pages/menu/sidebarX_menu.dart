@@ -1,12 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
-import 'package:gohouse/ui/my_app.dart';
-import 'package:gohouse/ui/home/home_page.dart';
-// import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
-// import 'package:gohouse/utils/routes/routehandlers.dart';
 import 'package:gohouse/utils/routes/routes.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';

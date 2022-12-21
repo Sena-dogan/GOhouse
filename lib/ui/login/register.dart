@@ -1,7 +1,5 @@
 import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gohouse/constants/app_theme.dart';
-import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/services/database.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
@@ -49,10 +47,13 @@ class _RegisterPageState extends State<RegisterPage> {
     return SizedBox.shrink();
   }
 
-  //TODO: Move them to auth service
   Future signUp() async {
     final email = _emailController.text.trim();
     final password = _passController.text.trim();
+    if (password != _confirmPassControl.text.trim()) {
+      _showErrorMessage("Şifreler eşleşmiyor");
+      return;
+    }
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -88,26 +89,26 @@ class _RegisterPageState extends State<RegisterPage> {
               //_buildBanner(),
               const SizedBox(height: 30),
               Text(
-                'Register Now!',
+                'Hesap Oluştur!',
                 style: GoogleFonts.bebasNeue(fontSize: 70),
               ),
               Text(
-                'and be a part of the GOhouse.',
+                've GoHouse\'da yerini al.',
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 13,
                 ),
               ),
               const SizedBox(height: 30),
-              _buildField(_emailController, 'Email', (value){}, false),
+              _buildField(_emailController, 'E-posta', (value){}, false),
               const SizedBox(
                 height: 10.0,
               ),
-              _buildField(_passController, 'Password', (value){}, true),
+              _buildField(_passController, 'Şifre', (value){}, true),
               const SizedBox(
                 height: 10.0,
               ), 
-              _buildField(_confirmPassControl, 'Confirm Password', (value) => signUp(), true),
+              _buildField(_confirmPassControl, 'Şifre tekrar', (value) => signUp(), true),
               const SizedBox(
                 height: 17,
               ),
@@ -133,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          'You have an account? ',
+          'Hesabın var mı? ',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -144,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 transition: TransitionType.fadeIn);
           }),
           child: const Text(
-            'Login now.',
+            'Giriş yap.',
             style: TextStyle(
               color: Colors.blue,
               fontWeight: FontWeight.bold,
@@ -217,17 +218,17 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Padding _buildBanner() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 1),
-      child: Hero(
-        tag: 'dash',
-        child: Image.asset(
-          //'https://i.pinimg.com/originals/e1/72/51/e172517ad9cfb16a8f92ca1911ff66ba.jpg',
-          Assets.appLogo,
-          width: 250,
-        ),
-      ),
-    );
-  }
+  // Padding _buildBanner() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(left: 1),
+  //     child: Hero(
+  //       tag: 'dash',
+  //       child: Image.asset(
+  //         //'https://i.pinimg.com/originals/e1/72/51/e172517ad9cfb16a8f92ca1911ff66ba.jpg',
+  //         Assets.appLogo,
+  //         width: 250,
+  //       ),
+  //     ),
+  //   );
+  // }
 }

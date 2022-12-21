@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: unnecessary_getters_setters
 
 class UserData {
   User? user;

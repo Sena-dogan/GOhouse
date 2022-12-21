@@ -5,7 +5,6 @@ import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/login/register.dart';
 import 'package:gohouse/ui/my_app.dart';
 import 'package:gohouse/ui/pages/menu/Pages/change_pass_page.dart';
-import 'package:gohouse/ui/pages/job_page.dart';
 import 'package:gohouse/ui/pages/menu/Pages/chat_page.dart';
 import 'package:fluro/fluro.dart';
 import 'package:gohouse/ui/pages/menu/Pages/contact_page.dart';

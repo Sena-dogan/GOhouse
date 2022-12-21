@@ -1,12 +1,9 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gohouse/constants/app_theme.dart';
-import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/constants/colors.dart';
 import 'package:gohouse/models/jobs.dart';
-import 'package:gohouse/models/user.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/widgets/data_box.dart';
@@ -34,7 +31,6 @@ class _ServePageState extends State<ServePage> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _jobsStore = Provider.of<JobsStore>(context);
     _userStore = Provider.of<UserStore>(context);
@@ -61,7 +57,7 @@ class _ServePageState extends State<ServePage> {
     );
     UploadTask uploadTask;
     Reference ref =
-        FirebaseStorage.instance.ref().child('JobImages/${image.name}');
+        _firebaseStorage.ref().child('JobImages/${image.name}');
     try {
       uploadTask = ref.putData(await imgFile.readAsBytes(), metadata);
       imgUrl = await (await uploadTask).ref.getDownloadURL();
@@ -101,7 +97,7 @@ class _ServePageState extends State<ServePage> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             imgUrl == null ? Text("Upload Image") : Text(""),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            _FieldPreview(context)
+            _fieldPreview(context)
           ],
         ),
       ),
@@ -131,7 +127,7 @@ class _ServePageState extends State<ServePage> {
     );
   }
 
-  Padding _FieldPreview(BuildContext context) {
+  Padding _fieldPreview(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(MediaQuery.of(context).size.height) * 0.04,
       child: Form(
@@ -176,7 +172,7 @@ class _ServePageState extends State<ServePage> {
                         context: context,
                         builder: (context) => AlertDialog(
                               title: Text("Hata"),
-                              content: Text("Lütfen "),
+                              content: Text("Lütfen tüm alanları doldurunuz"),
                               actions: [
                                 TextButton(
                                     onPressed: () => Navigator.pop(context),
@@ -190,7 +186,7 @@ class _ServePageState extends State<ServePage> {
                       price: _priceController.text,
                       description: _descriptionController.text,
                       image: imgUrl,
-                      user: _userStore.userdata!.user!.name.toString() +
+                      user: _userStore.userdata!.user!.email.toString() +
                           " " +
                           _userStore.userdata!.user!.surname.toString(),
                     ));

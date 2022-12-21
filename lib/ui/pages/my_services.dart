@@ -1,13 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:gohouse/data/network/apis/posts/post_api.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/ui/pages/job_page.dart';
-import 'package:gohouse/utils/routemanager/application.dart';
-import 'package:gohouse/utils/routes/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:gohouse/constants/app_theme.dart';
@@ -41,13 +37,6 @@ class _MyServicesState extends State<MyServices> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _jobsStore.editData(
-              JobEditRequest(id: 'gFCiargAo9SbNcJSeCOU', price: '311'));
-        },
-        child: Icon(Icons.add),
-      ),
       body: _body(context),
     );
   }
@@ -67,7 +56,7 @@ class _MyServicesState extends State<MyServices> {
   }
 
   Widget _body(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Observer(builder: (context) {
       return _jobsStore.loadingMyService
           ? loadingWidget()

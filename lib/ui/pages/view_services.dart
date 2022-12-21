@@ -50,17 +50,17 @@ class _ServiceState extends State<Service> {
   }
 
   Widget _body(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Observer(builder: (context) {
       return _jobsStore.loading
-          ? LoadingWidget()
+          ? _loadingWidget()
           : _jobsStore.jobs.isEmpty
               ? emptyWidget()
-              : BuildListWidget();
+              : _buildListWidget();
     });
   }
 
-  Container BuildListWidget() {
+  Container _buildListWidget() {
     return Container(
       color: Colors.grey[100],
       child: ListView.builder(
@@ -79,7 +79,8 @@ class _ServiceState extends State<Service> {
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Image.network(
-                        Assets.noImage,);
+                      Assets.noImage,
+                    );
                   },
                 ),
                 title: Text("${job.name}"),
@@ -104,7 +105,7 @@ class _ServiceState extends State<Service> {
     );
   }
 
-  Center LoadingWidget() {
+  Center _loadingWidget() {
     return Center(
       child: CircularProgressIndicator(),
     );

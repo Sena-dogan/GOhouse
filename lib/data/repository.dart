@@ -8,6 +8,7 @@ import 'network/apis/posts/post_api.dart';
 
 class Repository {
   // data source object
+  // ignore: unused_field
   final PostDataSource _postDataSource;
 
   // api objects

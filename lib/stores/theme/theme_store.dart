@@ -7,7 +7,7 @@ part 'theme_store.g.dart';
 class ThemeStore = _ThemeStore with _$ThemeStore;
 
 abstract class _ThemeStore with Store {
-  final String TAG = "_ThemeStore";
+  final String tag = "_ThemeStore";
 
   // repository instance
   final Repository _repository;
@@ -18,13 +18,11 @@ abstract class _ThemeStore with Store {
   @observable
   bool _darkMode = false;
 
-
   // getters:-------------------------------------------------------------------
   bool get darkMode => _darkMode;
 
   // constructor:---------------------------------------------------------------
-  _ThemeStore(Repository repository)
-      : this._repository = repository {
+  _ThemeStore(Repository repository) : this._repository = repository {
     init();
   }
 
@@ -43,9 +41,9 @@ abstract class _ThemeStore with Store {
   bool isPlatformDark(BuildContext context) =>
       MediaQuery.platformBrightnessOf(context) == Brightness.dark;
 
-  // dispose:-------------------------------------------------------------------
-  @override
-  void dispose() {
+  // // dispose:-------------------------------------------------------------------
+  // @override
+  // void dispose() {
     
-  }
+  // }
 }

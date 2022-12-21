@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:gohouse/constants/colors.dart';
-import 'package:gohouse/models/user.dart';
 import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/ui/pages/menu/sidebarX_menu.dart';
 import 'package:gohouse/ui/pages/menu/widgets/profile_menu_box.dart';
@@ -28,7 +25,6 @@ class _ProfilePageState extends State<ProfilePage> {
   late UserStore _userStore;
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     _userStore = Provider.of<UserStore>(context);
     if (FirebaseAuth.instance.currentUser != null)
       _userStore

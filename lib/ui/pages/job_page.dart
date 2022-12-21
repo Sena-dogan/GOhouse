@@ -134,7 +134,7 @@ Widget _buildBody(BuildContext context, Jobs job) {
             child: Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 18.0),
               child: Text(
-                "Ilan sahibi: ${job.user}",
+                "Ilan sahibi: ${job.user!.split('@')[0]}",
                 style: GoogleFonts.roboto(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

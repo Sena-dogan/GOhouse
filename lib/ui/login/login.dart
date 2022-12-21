@@ -1,16 +1,11 @@
-import 'dart:math';
-
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gohouse/constants/app_theme.dart';
 import 'package:gohouse/constants/assets.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
-import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -22,8 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _userEmailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  //stores:---------------------------------------------------------------------
-  late ThemeStore _themeStore;
+  // //stores:---------------------------------------------------------------------
+  // late ThemeStore _themeStore;
 
   //focus node:-----------------------------------------------------------------
   late FocusNode _passwordFocusNode;
@@ -34,12 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     _passwordFocusNode = FocusNode();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _themeStore = Provider.of<ThemeStore>(context);
   }
 
   Future signIn() async {
@@ -70,21 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       //appBar: _loginAppBar(),
       body: _buildBody(),
-    );
-  }
-
-  PreferredSizeWidget _loginAppBar() {
-    return AppBar(
-      title: Text(
-        "GOhouse",
-        style: GoogleFonts.roboto(
-            fontSize: 25.0,
-            color: AppThemeData.lightColorScheme.primary,
-            fontWeight: FontWeight.normal),
-      ),
-      elevation: 5.0,
-      backgroundColor: Colors.white,
-      automaticallyImplyLeading: false,
     );
   }
 
@@ -133,10 +107,10 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             _buildWelcome(),
             SizedBox(height: 70.0),
-            _buildField(_userEmailController, 'Email', (p0) {}, false),
+            _buildField(_userEmailController, 'E-posta', (p0) {}, false),
             SizedBox(height: 20.0),
             _buildField(
-                _passwordController, 'Password', (p0) => signIn(), true),
+                _passwordController, 'Şifre', (p0) => signIn(), true),
             SizedBox(height: 12.0),
             _buildForgotPasswordButton(),
             SizedBox(height: 12.0),
@@ -208,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   transition: TransitionType.fadeIn);
             },
             child: Text(
-              'Forgot Password?',
+              'Şifreni mi unuttun?',
               style: TextStyle(
                 color: Colors.blue,
                 fontWeight: FontWeight.bold,
@@ -238,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           child: Center(
             child: Text(
-              'Sign in',
+              'Giriş Yap',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -273,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Don\'t have account? ',
+          'Hesabın yok mu?',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -285,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 transition: TransitionType.fadeIn);
           },
           child: Text(
-            'Register now.',
+            ' Hesap oluştur.',
             style: TextStyle(
               color: Colors.blue,
               fontWeight: FontWeight.bold,

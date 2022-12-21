@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:gohouse/data/network/apis/posts/post_api.dart';
 import 'package:gohouse/data/repository.dart';
 import 'package:gohouse/models/jobs.dart';
 import 'package:mobx/mobx.dart';

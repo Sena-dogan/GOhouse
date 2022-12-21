@@ -7,13 +7,11 @@ import 'package:gohouse/stores/jobs/jobs_store.dart';
 import 'package:gohouse/stores/theme/theme_store.dart';
 import 'package:gohouse/stores/user/user_store.dart';
 import 'package:gohouse/widgets/navigation_bar.dart';
-import 'package:gohouse/ui/login/login.dart';
 import 'package:gohouse/ui/splash/splash.dart';
 import 'package:gohouse/utils/routemanager/application.dart';
 import 'package:gohouse/utils/routes/routes.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +30,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     final router = FluroRouter();
     Routes.configureRoutes(router);
