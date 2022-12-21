@@ -75,7 +75,7 @@ class _ServiceState extends State<Service> {
                 leading: Image.network(
                   '${job.image}',
                   height: 300,
-                  width: 130,
+                  width: 110,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Image.network(
@@ -87,7 +87,7 @@ class _ServiceState extends State<Service> {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${job.description}"),
+                    Text("${job.description}..", maxLines: 2 ,),
                     Text(
                       "${job.price} ₺",
                       style: GoogleFonts.roboto(fontWeight: FontWeight.bold),

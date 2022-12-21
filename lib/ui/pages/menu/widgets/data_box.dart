@@ -23,7 +23,7 @@ class DataBoxWidget extends StatelessWidget {
         minLines: minLine,
         maxLines: maxLine,
         keyboardType: keyboardType,
-        obscureText: true,
+        obscureText: false,
         decoration: InputDecoration(
           label: Text(title),
           prefixIcon: Icon(

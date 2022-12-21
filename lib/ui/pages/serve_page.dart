@@ -92,9 +92,9 @@ class _ServePageState extends State<ServePage> {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             imgUrl == null ? _uploadImageIcon() : _imagePreview(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.011),
             imgUrl == null ? Text("Upload Image") : Text(""),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             _fieldPreview(context)
@@ -107,8 +107,8 @@ class _ServePageState extends State<ServePage> {
   Image _imagePreview() {
     return Image.network(
       imgUrl!,
-      height: 180,
-      width: 290,
+      height: 130,
+      width: 250,
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
         return _uploadImageIcon();
@@ -186,9 +186,7 @@ class _ServePageState extends State<ServePage> {
                       price: _priceController.text,
                       description: _descriptionController.text,
                       image: imgUrl,
-                      user: _userStore.userdata!.user!.email.toString() +
-                          " " +
-                          _userStore.userdata!.user!.surname.toString(),
+                      user: _userStore.userdata!.user!.email.toString()
                     ));
                     showDialog(
                         context: context,
