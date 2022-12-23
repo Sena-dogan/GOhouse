@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
         body: StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        if (snapshot.hasData)
+        if (snapshot.hasData) // login olmussa
           return HomeScreen();
         else
           return SplashScreen();

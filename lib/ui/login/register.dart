@@ -62,8 +62,12 @@ class _RegisterPageState extends State<RegisterPage> {
       final user = FirebaseAuth.instance.currentUser;
       final uid = user!.uid;
       // Create a new document for the user with the uid
-      await DatabaseService(uid: uid)
-          .updateUserData(email.split("@")[0], '', email, 0, 'https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg');
+      await DatabaseService(uid: uid).updateUserData(
+          email.split("@")[0],
+          '',
+          email,
+          0,
+          'https://t3.ftcdn.net/jpg/01/18/01/98/360_F_118019822_6CKXP6rXmVhDOzbXZlLqEM2ya4HhYzSV.jpg');
       Application.router.navigateTo(context, Routes.mainPage,
           transition: TransitionType.fadeIn);
     } on FirebaseAuthException catch (e) {
@@ -100,15 +104,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(height: 30),
-              _buildField(_emailController, 'E-posta', (value){}, false),
+              _buildField(_emailController, 'E-posta', (value) {}, false),
               const SizedBox(
                 height: 10.0,
               ),
-              _buildField(_passController, 'Şifre', (value){}, true),
+              _buildField(_passController, 'Şifre', (value) {}, true),
               const SizedBox(
                 height: 10.0,
-              ), 
-              _buildField(_confirmPassControl, 'Şifre tekrar', (value) => signUp(), true),
+              ),
+              _buildField(_confirmPassControl, 'Şifre tekrar',
+                  (value) => signUp(), true),
               const SizedBox(
                 height: 17,
               ),
@@ -182,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-    Widget _buildField(
+  Widget _buildField(
     TextEditingController _controller,
     String hint,
     void Function(String) onFieldSubmitted,
